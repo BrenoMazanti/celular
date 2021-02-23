@@ -14,17 +14,17 @@
 				placeholder="Pesquise um produto" aria-label="Pesquise um produto"
 				aria-describedby="button-addon2">
 			<div class="input-group-append"
-				style="margin-top: 8%; margin-bottom: 2%; margin-right: 10%;">
+				style="margin-top: 6%; margin-bottom: 2%; margin-right: 10%;">
 				<button class="btn btn-outline-secondary" type="button"
 					id="button-addon2">
-					Pesquisar<i class="material-icons" style="margin-left: 5px;">search</i>
+					Pesquisar <i class="fas fa-search"></i>
 				</button>
 			</div>
 		</div>
 	</div>
 	<div class="col-3" style="margin-top: 2%;">
 		<ul class="nav justify-content-center">
-			<li class="nav-item" style="margin-top: 5%;">
+			<li class="nav-item" style="margin-top: 3%;">
 				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
@@ -33,7 +33,7 @@
 					<%if(request.getSession().getAttribute("cliente") != null) {%>
 
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Meus Dados</a> <a
+						<a class="dropdown-item" href="FormAlterarCliente.jsp">Meus Dados</a> <a
 							class="dropdown-item" href="#">Meus Endereços</a> <a
 							class="dropdown-item" href="#">Meus Cartões</a> <a
 							class="dropdown-item" href="#">Meus Pedidos</a>
@@ -43,8 +43,9 @@
 					<% } 
 					else {%>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Entrar</a>
-						<a class="dropdown-item" href="#">Meus Dados</a> <a
+						<a class="dropdown-item" href="telalogin.jsp">Entrar</a>
+						<a class="dropdown-item" href="FormCliente.jsp">Cadastrar</a>
+						<a class="dropdown-item" href="FormAlterarCliente.jsp">Meus Dados</a> <a
 							class="dropdown-item" href="#">Meus Endereços</a> <a
 							class="dropdown-item" href="#">Meus Cartões</a> <a
 							class="dropdown-item" href="#">Meus Pedidos</a>
@@ -55,7 +56,9 @@
 				</div>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="Carrinho.jsp"
-				style="color: black"><i class="medium material-icons">shopping_cart</i></a></li>
+				style="color: black"><i style="font-size:40px;" class="fas fa-shopping-cart"></i></a></li>
 		</ul>
 	</div>
 </div>
+
+<script src="https://kit.fontawesome.com/d4b7dd0609.js" crossorigin="anonymous"></script>

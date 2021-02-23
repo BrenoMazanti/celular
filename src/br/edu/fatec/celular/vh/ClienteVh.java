@@ -33,6 +33,7 @@ public class ClienteVh implements IViewHelper {
 		String dataNascimento;
 		String sexo;
 		String telefone;
+		String celular;
 
 		if (operacao != null && operacao.equals("SALVAR")) {
 
@@ -83,6 +84,11 @@ public class ClienteVh implements IViewHelper {
 				telefone = req.getParameter("txtTelefone");
 			else
 				telefone = "";
+			
+			if (req.getParameter("txtCelular") != null && !req.getParameter("txtCelular").equals(""))
+				celular = req.getParameter("txtCelular");
+			else
+				celular = "";
 
 			cli.setDtCadastro(dtCadastro);
 			cli.setEmail(email);
@@ -93,6 +99,7 @@ public class ClienteVh implements IViewHelper {
 			cli.setDataNascimento(dataNascimento);
 			cli.setSexo(sexo);
 			cli.setTelefone(telefone);
+			cli.setCelular(celular);
 		}
 
 		else if (operacao != null && operacao.equals("LOGIN")) {
@@ -141,7 +148,8 @@ public class ClienteVh implements IViewHelper {
 			if (operacao.equals("SALVAR")) {
 				resultado.setMsg("Cliente cadastrado com sucesso!");
 				req.setAttribute("resultado", resultado.getMsg());
-				d = req.getRequestDispatcher("FormCliente.jsp");
+				req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
+				d = req.getRequestDispatcher("telainicial.jsp");
 			}
 			if (operacao.equals("LISTAR")) {
 					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
@@ -157,11 +165,11 @@ public class ClienteVh implements IViewHelper {
 				else if (operacao.equals("LOGIN")) {
 					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
 						req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
-						d = req.getRequestDispatcher("selecionarendereco.jsp");
+						d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 					} else {
 						resultado.setMsg("Cliente_não_encontrado!");
 						req.setAttribute("resultado", resultado.getMsg());
-						d = req.getRequestDispatcher("telalogincarrinho.jsp");
+						d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 					}
 				}
 			}

@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<%@ include file="qtdecartoes.jsp"%>
+<%@ include file="/Componentes/EstruturaInicio.jsp"%>
+</head>
 <body>
 	
 	<div class="row" align="center">

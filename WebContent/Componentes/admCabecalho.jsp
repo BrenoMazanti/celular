@@ -21,8 +21,8 @@
 			<li class="nav-item"><a class="nav-link"
 				href="./Celular?operacao=LISTAR">Produtos</a></li>
 			<li class="nav-item"><a class="nav-link active"
-				href="./Pedido?operacao=LISTAR">Pedidos</a>
-			<li class="nav-item"><a class="nav-link active" href="#">Análise</a>
+				href="admPedidos.jsp">Pedidos</a>
+			<li class="nav-item"><a class="nav-link active" href="admAnalise.jsp">Análise</a>
 			<li class="nav-item " style="padding-left: 60%;">
 				<button
 					class="btn btn-secondary dropdown-toggle" type="button"

@@ -1,33 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<%@ include file="Menu.jsp" %>
+<%@ include file="Componentes/EstruturaInicio.jsp"%>
+</head>
 <body>
-		<div align="center">
-			<table>
+	<%@ include file="Componentes/Cabecalho.jsp"%>
+
+	<%
+		if (request.getAttribute("resultado") != null) {
+			out.println(
+					"<input type = 'hidden' id = 'resultado' value = " + request.getAttribute("resultado") + ">");
+		}
+	%>
+
+	<div align="center">
+		<form action="Cliente" method="post">
+			<input type="hidden" name="operacao" value="LOGIN">
+			<table style="margin: 5%; align-self: center;">
 				<tr>
-					<td>
-						<label for="txtEmail">Login:</label>
-					</td>
-					<td>
-						<input id="txtEmail" type="email" name="txtEmail">
-					</td>
+					<td style="margin: 20px;"><label for="txtEmail">Login:</label></td>
+					<td><input id="txtEmail" type="email" name="txtEmail"
+						style="width: 200px" required></td>
 				</tr>
 				<tr>
-					<td>
-						<label for="txtEmail">Senha:</label>
-					</td>
-					<td>
-						<input id="txtSenha" type="password" name="txtSenha">
-					</td>
+					<td style="margin: 20px;"><label for="txtSenha">Senha:</label></td>
+					<td><input id="txtSenha" type="password" name="txtSenha"
+						style="width: 200px" required></td>
 				</tr>
 				<tr>
-					<td>
-						<a type = "button" href="Cliente?operacao=LOGIN">Entrar</a>
-					</td>
+					<td></td>
+					<td><input class="btn btn-primary" type="submit"
+						value="Entrar"></td>
 				</tr>
 			</table>
-		</div>
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*var resultado = document.getElementById("resultado").value;
+			if(resultado != null)
+				alert(resultado);*/
+			if ($("#resultado").val() != null)
+				alert($("#resultado").val());
+		});
+	</script>
 </body>
 </html>

@@ -30,8 +30,9 @@ public abstract class AbstractDAO implements IDAO{
 		openConnection();
 		PreparedStatement pst=null;		
 		StringBuilder sb = new StringBuilder();
-		sb.append("DELETE FROM ");
-		sb.append(table);
+		sb.append("UPDATE ");
+		sb.append(table );
+		sb.append(" SET ativo = FALSE");
 		sb.append(" WHERE ");
 		sb.append(idTable);
 		sb.append("=");

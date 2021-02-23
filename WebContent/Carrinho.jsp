@@ -8,7 +8,6 @@ img {
 </head>
 <body>
 	<%@ include file="Componentes/Cabecalho.jsp"%>
-		
 	<h1 align="center">CARRINHO</h1>
 	<div class="row">
 		<div class="col-8">
@@ -66,7 +65,7 @@ img {
 			</div>
 			<div class="row" style="padding: 10px">
 				<div class="col-12" align="center">
-					<a href="telalogincarrinho.jsp" class="btn btn-primary">Finalizar
+					<a href="selecionarendereco.jsp" class="btn btn-primary">Finalizar
 						Compra</a>
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 <%@ include file="./Componentes/EstruturaInicio.jsp"%>
 <%@ include file="./CSS/telas.css"%>
+<%@page import="br.edu.fatec.celular.dominio.Cliente"%>
 <title>Selecionar endereço</title>
 </head>
 <body>
@@ -7,6 +8,11 @@
 	<h1 align="center" margin=10px>SELECIONAR ENDEREÇO</h1>
 	<table style="margin: 60px">
 		<%
+			session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
+			Cliente cliente = (Cliente) session.getAttribute("cliente");
+			if (cliente == null) {
+				response.sendRedirect("telalogin.jsp");
+			}
 			//dar possibilidade de utilizar outro endereço ou cadastrar novo endereço em sua conta (2 botões).
 			for (int i = 0; i < 1; i++) {
 		%>

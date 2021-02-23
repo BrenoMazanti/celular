@@ -1,10 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<%@ include file="qtdecartoes.jsp"%>
+<%@ include file="/Componentes/EstruturaInicio.jsp"%>
+</head>
 <body>
-	<div class="row" align="center">
+	<div class="row" align="center" style="margin-top: 10%">
 		<div class="col-8">
 			<div class="row">
 				<%
@@ -45,6 +42,11 @@
 				</div>
 				<div class="col-4">
 					<a href="#" class="btn btn-primary">Adicionar</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-4">
+					<a href="finalizarPedido.jsp" class="btn btn-primary">Finalizar Compra</a>
 				</div>
 			</div>
 		</div>

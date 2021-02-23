@@ -83,7 +83,7 @@ public class AdministradorDAO extends AbstractDAO {
 		if (administrador.getId() != null) {
 			sql = "SELECT * FROM tb_adm WHERE id = ?";
 		} else if (administrador.getEmail() != null && administrador.getSenha() != null) {
-			sql = "SELECT * FROM tb_adm WHERE email = ? AND senha = ? ";
+			sql = "SELECT * FROM tb_adm WHERE email = ? AND senha = ? AND ativo = true";
 		} else {
 			sql = "SELECT * FROM tb_adm WHERE ativo = true";
 		}
