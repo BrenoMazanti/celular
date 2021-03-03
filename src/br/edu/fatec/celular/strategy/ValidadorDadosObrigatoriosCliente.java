@@ -9,13 +9,7 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 	public String processar(EntidadeDominio entidade) {
 
 		if (entidade instanceof Cliente) {
-			/*
-			 * private String titulo; private String origem; private String editora; private
-			 * String edicao; private String sinopse; private List <Genero> generos; private
-			 * List <Autor> autores; private int qtdFixa; private int ano; private int
-			 * altura; private int largura; private int comprimento; private int peso;
-			 * private int paginas;
-			 */
+			
 			String msg = "O(s) campo(s):\n";
 			int cont = 0;
 			Cliente cli = new Cliente();

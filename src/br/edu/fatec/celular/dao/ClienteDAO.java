@@ -131,6 +131,8 @@ public class ClienteDAO extends AbstractDAO {
 
 		if (cliente.getId() != null) {
 			sql = "SELECT * FROM tb_cliente WHERE nome LIKE '%?%' OR id = ?";
+		} else if (cliente.getEmail() != null && cliente.getCpf() != null) {
+			sql = "SELECT * FROM tb_cliente WHERE email = ? OR cpf = ? AND ativo = true";
 		} else if (cliente.getEmail() != null && cliente.getSenha() != null) {
 			sql = "SELECT * FROM tb_cliente WHERE email = ? AND senha = ? AND ativo = true";
 		}
@@ -138,12 +140,17 @@ public class ClienteDAO extends AbstractDAO {
 		try {
 			openConnection();
 			pst = connection.prepareStatement(sql);
-
-			if (cliente.getNome() != null) {
+			
+			if (cliente.getNome() != null && cliente.getId() != null) {
 				pst.setString(1, cliente.getNome());
 				pst.setInt(2, cliente.getId());
 			}
-
+            
+			else if (cliente.getEmail() != null && cliente.getCpf() != null) {
+				pst.setString(1, cliente.getEmail());
+				pst.setString(2, cliente.getCpf());
+			}
+			
 			else if (cliente.getEmail() != null && cliente.getSenha() != null) {
 				pst.setString(1, cliente.getEmail());
 				pst.setString(2, cliente.getSenha());

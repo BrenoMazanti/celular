@@ -12,6 +12,7 @@ import br.edu.fatec.celular.dao.ClienteDAO;
 import br.edu.fatec.celular.dominio.Administrador;
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.strategy.IStrategy;
+import br.edu.fatec.celular.strategy.ValidadorClienteUnico;
 import br.edu.fatec.celular.strategy.ValidadorDadosObrigatoriosCliente;
 import br.edu.fatec.celular.dominio.EntidadeDominio;
 import br.edu.fatec.celular.util.Resultado;
@@ -33,12 +34,14 @@ public class Fachada implements IFachada {
 
 		// REGRAS DE NEGOCIO Cliente
 		ValidadorDadosObrigatoriosCliente vrDadosObrigatoriosCliente = new ValidadorDadosObrigatoriosCliente();
+		ValidadorClienteUnico vrClienteUnico = new ValidadorClienteUnico();
 
 		List<IStrategy> rnsSalvarCliente = new ArrayList<IStrategy>();
 		List<IStrategy> rnsAlterarCliente = new ArrayList<IStrategy>();
 		List<IStrategy> rnsExcluirCliente = new ArrayList<IStrategy>();
 
 		rnsSalvarCliente.add(vrDadosObrigatoriosCliente);
+		rnsSalvarCliente.add(vrClienteUnico);
 		// acrescentar cada regra de negócio referente ao seu tipo de ação (se for
 		// salvar, alterar ou excluir terá regras diferentes)
 
