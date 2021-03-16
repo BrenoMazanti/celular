@@ -169,7 +169,7 @@ public class ClienteVh implements IViewHelper {
 					} else {
 						resultado.setMsg("Cliente_não_encontrado!");
 						req.setAttribute("resultado", resultado.getMsg());
-						d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+						d = req.getRequestDispatcher("telalogin.jsp");
 					}
 				}
 			}
