@@ -2,7 +2,7 @@
 <%@page import="br.edu.fatec.celular.util.Resultado"%>
 <%@page import="br.edu.fatec.celular.dominio.Cliente"%>
 <%@page import="java.util.List"%>
-<%@ include file="Componentes/EstruturaInicio.jsp"%>
+<%@ include file="Componentes/EstruturaMate.jsp"%>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>

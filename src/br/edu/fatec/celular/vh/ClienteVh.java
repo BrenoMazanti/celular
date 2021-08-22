@@ -65,11 +65,6 @@ public class ClienteVh implements IViewHelper {
 			else
 				nome = "";
 
-			if (req.getParameter("txtNome") != null && !req.getParameter("txtNome").equals(""))
-				nome = req.getParameter("txtNome");
-			else
-				nome = "";
-
 			if (req.getParameter("txtDataNascimento") != null && !req.getParameter("txtDataNascimento").equals(""))
 				dataNascimento = req.getParameter("txtDataNascimento");
 			else
@@ -116,6 +111,39 @@ public class ClienteVh implements IViewHelper {
 			cli.setEmail(email);
 			cli.setSenha(senha);
 		}
+		
+		else if (operacao != null && operacao.equals("ALTERAR")) {
+			cli = (Cliente) req.getSession().getAttribute("cliente");
+
+			//Não poderá alterar CPF e email
+			//if (req.getParameter("txtEmail") != null && !req.getParameter("txtEmail").equals(""))
+				//cli.setEmail(req.getParameter("txtEmail"));
+
+			if (req.getParameter("txtSenha") != null && !req.getParameter("txtSenha").equals(""))
+				cli.setSenha(req.getParameter("txtSenha"));
+
+			if (req.getParameter("txtConfirmarSenha") != null && !req.getParameter("txtConfirmarSenha").equals(""))
+				cli.setConfirmarSenha(req.getParameter("txtConfirmarSenha"));
+			
+			//Não poderá alterar CPF e email
+			//if (req.getParameter("txtCpf") != null && !req.getParameter("txtCpf").equals(""))
+				//cli.setCpf(req.getParameter("txtCpf"));
+
+			if (req.getParameter("txtNome") != null && !req.getParameter("txtNome").equals(""))
+				cli.setNome(req.getParameter("txtNome"));
+
+			if (req.getParameter("txtDataNascimento") != null && !req.getParameter("txtDataNascimento").equals(""))
+				cli.setDataNascimento(req.getParameter("txtDataNascimento"));
+
+			if (req.getParameter("txtSexo") != null && !req.getParameter("txtSexo").equals(""))
+				cli.setSexo(req.getParameter("txtSexo"));
+
+			if (req.getParameter("txtTelefone") != null && !req.getParameter("txtTelefone").equals(""))
+				cli.setTelefone(req.getParameter("txtTelefone"));
+
+			if (req.getParameter("txtCelular") != null && !req.getParameter("txtCelular").equals(""))
+				cli.setCelular(req.getParameter("txtCelular"));
+		}
 
 		/*else {
 			HttpSession session = req.getSession();
@@ -149,7 +177,7 @@ public class ClienteVh implements IViewHelper {
 				resultado.setMsg("Cliente cadastrado com sucesso!");
 				req.setAttribute("resultado", resultado.getMsg());
 				req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
-				d = req.getRequestDispatcher("telainicial.jsp");
+				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
 			if (operacao.equals("LISTAR")) {
 					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
@@ -172,10 +200,36 @@ public class ClienteVh implements IViewHelper {
 						d = req.getRequestDispatcher("telalogin.jsp");
 					}
 				}
+			
+				else if (operacao.equals("LOGIN")) {
+					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
+						req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
+						d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+					} else {
+						resultado.setMsg("Cliente_não_encontrado!");
+						req.setAttribute("resultado", resultado.getMsg());
+						d = req.getRequestDispatcher("telalogin.jsp");
+					}
+				}
+				
+				else if (operacao.equals("ALTERAR")) {
+					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
+						req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
+						d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+					} else {
+						resultado.setMsg("Cliente_não_encontrado!");
+						req.setAttribute("resultado", resultado.getMsg());
+						d = req.getRequestDispatcher("telalogin.jsp");
+					}
+				}
 			}
 
 		else {
 			if (operacao.equals("SALVAR")) {
+				req.setAttribute("resultado", resultado.getMsg());
+				d = req.getRequestDispatcher("FormCliente.jsp");
+			}
+			if (operacao.equals("ALTERAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
 				d = req.getRequestDispatcher("FormCliente.jsp");
 			}

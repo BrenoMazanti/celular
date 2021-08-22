@@ -1,4 +1,4 @@
-<%@ include file="Componentes/EstruturaInicio.jsp"%>
+<%@ include file="Componentes/EstruturaMate.jsp"%>
 </head>
 <body>
 	<%@ include file="Componentes/admCabecalho.jsp"%>

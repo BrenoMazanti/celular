@@ -17,8 +17,9 @@ public class Celular extends EntidadeDominio {
 	private String processador;
 	private String componentes;
 		
-	private Cor cor; ////
-	private Armazenamento armazenamento; ////
+	//private List<Cor> cores; ////
+	//private List<Armazenamento> armazenamentos; ////
+	private List<CelularVariedade> variedades;
 	private Marca marca;
 	private SistemaOperacional so;
 	private Double preco;
@@ -104,17 +105,11 @@ public class Celular extends EntidadeDominio {
 	public void setProcessador(String processador) {
 		this.processador = processador;
 	}
-	public Cor getCor() {
-		return cor;
+	public List<CelularVariedade> getVariedades() {
+		return variedades;
 	}
-	public void setCor(Cor cor) {
-		this.cor = cor;
-	}
-	public Armazenamento getArmazenamento() {
-		return armazenamento;
-	}
-	public void setArmazenamento(Armazenamento armazenamento) {
-		this.armazenamento = armazenamento;
+	public void setVariedades(List<CelularVariedade> variedades) {
+		this.variedades = variedades;
 	}
 	public Marca getMarca() {
 		return marca;

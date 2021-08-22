@@ -85,7 +85,7 @@ public class ClienteDAO extends AbstractDAO {
 			connection.setAutoCommit(false);
 			StringBuilder sql = new StringBuilder();
 			sql.append(
-					"UPDATE tb_cliente SET dt_alteracao = ?, email = ?, senha = ?, cpf = ?, nome = ?, dt_nascimento = ?,"
+					"UPDATE tb_cliente SET dt_alteracao = ?, senha = ?, cpf = ?, nome = ?, dt_nascimento = ?,"
 							+ "sexo = ?, telefone = ?, celular = ?");
 			sql.append("WHERE id = ?");
 
@@ -93,15 +93,17 @@ public class ClienteDAO extends AbstractDAO {
 
 			Timestamp time = new Timestamp(cliente.getDtAlteracao().getTime());
 			pst.setTimestamp(1, time);
-			pst.setString(2, cliente.getEmail());
-			pst.setString(3, cliente.getSenha());
-			pst.setString(4, cliente.getCpf());
-			pst.setString(5, cliente.getNome());
-			pst.setString(6, cliente.getDataNascimento());
-			pst.setString(7, cliente.getSexo());
-			pst.setString(8, cliente.getTelefone());
-			pst.setString(9, cliente.getCelular());
-			pst.setInt(10, cliente.getId());
+			pst.setString(2, cliente.getSenha());
+			pst.setString(3, cliente.getNome());
+			pst.setString(4, cliente.getDataNascimento());
+			pst.setString(5, cliente.getSexo());
+			pst.setString(6, cliente.getTelefone());
+			pst.setString(7, cliente.getCelular());
+			pst.setInt(8, cliente.getId());
+			
+			//Não será cadastrado email e CPF
+			//pst.setString(3, cliente.getEmail());
+			//pst.setString(3, cliente.getEmail());
 
 			pst.executeUpdate();
 			connection.commit();

@@ -4,18 +4,15 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
+<%@ include file="/Componentes/EstruturaInicio.jsp"%>
 <meta charset="ISO-8859-1">
-<%@ include file="Menu.jsp"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 </head>
 <body>
-
+	<%@ include file="./Componentes/Cabecalho.jsp"%>
 	<%
 		if (request.getAttribute("resultado") != null) {
 			out.println("<div id = 'resultado'>");
