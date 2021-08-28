@@ -41,6 +41,10 @@
 					out.println(cliente.getEmail());
 				%>
 			</td>
+			<td>
+				<a href="FormCliente.jsp">alterar</a>
+			</td>
+			<>
 		</tr>
 		<%
 			}

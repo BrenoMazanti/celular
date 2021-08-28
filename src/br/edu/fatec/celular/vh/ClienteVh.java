@@ -95,6 +95,7 @@ public class ClienteVh implements IViewHelper {
 			cli.setSexo(sexo);
 			cli.setTelefone(telefone);
 			cli.setCelular(celular);
+			
 		}
 
 		else if (operacao != null && operacao.equals("LOGIN")) {
@@ -231,6 +232,7 @@ public class ClienteVh implements IViewHelper {
 			}
 			if (operacao.equals("ALTERAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
+				
 				d = req.getRequestDispatcher("FormCliente.jsp");
 			}
 		}

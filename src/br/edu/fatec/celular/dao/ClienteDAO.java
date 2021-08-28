@@ -94,12 +94,13 @@ public class ClienteDAO extends AbstractDAO {
 			Timestamp time = new Timestamp(cliente.getDtAlteracao().getTime());
 			pst.setTimestamp(1, time);
 			pst.setString(2, cliente.getSenha());
-			pst.setString(3, cliente.getNome());
-			pst.setString(4, cliente.getDataNascimento());
-			pst.setString(5, cliente.getSexo());
-			pst.setString(6, cliente.getTelefone());
-			pst.setString(7, cliente.getCelular());
-			pst.setInt(8, cliente.getId());
+			pst.setString(3, cliente.getCpf());
+			pst.setString(4, cliente.getNome());
+			pst.setString(5, cliente.getDataNascimento());
+			pst.setString(6, cliente.getSexo());
+			pst.setString(7, cliente.getTelefone());
+			pst.setString(8, cliente.getCelular());
+			pst.setInt(9, cliente.getId());
 			
 			//Não será cadastrado email e CPF
 			//pst.setString(3, cliente.getEmail());

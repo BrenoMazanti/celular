@@ -61,23 +61,24 @@
 		<div class="form-group">
 			<label for="txtSexo">Sexo</label> <select class="form-control"
 				id="txtSexo" name="txtSexo">
-				<option value="M">Masculino</option>
-				<option value="F">Feminino</option>
-				<option value="I">Indefinido</option>
-				<option selected value="<%=cliente.getSexo()%>"><%=cliente.getSexo()%></option>
+				<option value="M" <% if(cliente.getSexo().equals("M")){out.print("selected");}	%>>Masculino</option>
+				<option value="F" <% if(cliente.getSexo().equals("F")){out.print("selected");}	%>>Feminino</option>
+				<option value="I" <% if(cliente.getSexo().equals("I")){out.print("selected");}	%>>Indefinido</option>
 			</select>
 		</div>
 
 		<div class="form-group">
 			<label for="txtTelefone">Telefone</label> <input type="text"
 				class="form-control" id="txtTelefone" name="txtTelefone"
-				placeholder="(00)0000-0000">
+				placeholder="(00)0000-0000"
+				value="<%=cliente.getTelefone()%>">
 		</div>
 
 		<div class="form-group">
 			<label for="txtCelular">Celular</label> <input type="text"
 				class="form-control" id="txtCelular" name="txtCelular"
-				placeholder="(00)00000-0000">
+				placeholder="(00)00000-0000"
+				value="<%=cliente.getCelular()%>">
 		</div>
 		
 		<div class="form-group" align="center">
@@ -127,7 +128,7 @@
 
 		<div class="form-group">
 			<label for="txtSexo">Sexo</label> <select class="form-control"
-				id="txtSexo" name="txtSexo">
+				id="txtSexo" name="txtSexo" required>
 				<option value="M">Masculino</option>
 				<option value="F">Feminino</option>
 				<option value="I">Indefinido</option>
@@ -158,10 +159,14 @@
 	</form>
 
 	<script type="text/javascript">
-		$("#resultado").show();
-		setTimeout(function() {
-			$("#resultado").hide();
-		}, 5000);
+		//$("#resultado").show();
+		//setTimeout(function() {
+		//	$("#resultado").hide();
+		//}, 10000);
+		function processRequest(e) {
+   			var response=<%request.getAttribute("resultado");%>
+  			alert(response);
+		}
 
 		$(document).ready(function() {
 			
@@ -170,7 +175,39 @@
 			$("#txtCpf").mask("000.000.000-00", {
 				reverse : true
 			});
+			
+			if ($("#resultado").val() != null)
+				alert($("#resultado").val());
 		});
+
+		window.onbeforeunload = function() {
+		    localStorage.setItem("email", $('#txtEmail').val());
+		    localStorage.setItem("senha", $('#txtSenha').val());
+		    localStorage.setItem("cSenha", $('#txtConfirmarSenha').val());
+		    localStorage.setItem("cpf", $('#txtCpf').val());
+		    localStorage.setItem("nome", $('#txtNome').val());
+		    localStorage.setItem("dtnasc", $('#txtDataNascimento').val());
+		    localStorage.setItem("sexo", $('#txtSexo').val());
+		    localStorage.setItem("tel", $('#txtTelefone').val());
+		    localStorage.setItem("cel", $('#txtCelular').val());
+		    // ...
+		}
+		<%// if (cliente == null) { %>
+		//window.onload = function() {
+
+		    //var email = localStorage.getItem("email");
+		    //if (email !== null) $('#txtEmail').val(email);
+		    
+		    //var senha = localStorage.getItem("senha");
+		    //if (senha !== null) $('#txtSenha').val(senha);
+		    
+		    //var cSenha = localStorage.getItem("cSenha");
+		    //if (cSenha !== null) $('#txtConfirmarSenha').val(cSenha);
+		    
+		    // ...
+		//}
+		<% //}%>
+		
 	</script>
 </body>
 </html>
