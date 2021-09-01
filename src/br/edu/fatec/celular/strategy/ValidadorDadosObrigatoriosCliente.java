@@ -39,7 +39,7 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 				cont ++;
 			}
 			
-			if (cpf == null || cpf == "") {
+			if (cpf == null || cpf == "" || cpf.length() < 14) {
 				msg += "- CPF\n";
 				cont ++;
 			}
@@ -59,7 +59,7 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 				cont ++;
 			}
 			
-			if (telefone == null || telefone == "") {
+			if (telefone == null || telefone == "" || telefone.length() < 13) {
 				msg += "- Telefone\n";
 				cont ++;
 			}

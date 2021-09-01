@@ -24,7 +24,8 @@
 			<label for="txtEmail">E-mail</label> <input type="email"
 				class="form-control" id="txtEmail" name="txtEmail"
 				placeholder="nome@exemplo.com" 
-				value="<%=cliente.getEmail()%>">
+				value="<%=cliente.getEmail()%>"
+				disabled>
 		</div>
 
 		<div class="form-group">
@@ -42,7 +43,8 @@
 		<div class="form-group">
 			<label for="txtCpf">CPF</label> <input type="text"
 				class="form-control" id="txtCpf" name="txtCpf"
-				value="<%=cliente.getCpf()%>">
+				value="<%=cliente.getCpf()%>"
+				disabled>
 		</div>
 
 		<div class="form-group">
@@ -159,14 +161,10 @@
 	</form>
 
 	<script type="text/javascript">
-		//$("#resultado").show();
-		//setTimeout(function() {
-		//	$("#resultado").hide();
-		//}, 10000);
-		function processRequest(e) {
-   			var response=<%request.getAttribute("resultado");%>
-  			alert(response);
-		}
+		$("#resultado").show();
+		setTimeout(function() {
+			$("#resultado").hide();
+		}, 10000);
 
 		$(document).ready(function() {
 			
@@ -176,8 +174,8 @@
 				reverse : true
 			});
 			
-			if ($("#resultado").val() != null)
-				alert($("#resultado").val());
+			//if ($("#resultado").val() != null)
+			//	alert($("#resultado").val());
 		});
 
 		window.onbeforeunload = function() {

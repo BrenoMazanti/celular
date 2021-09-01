@@ -43,7 +43,7 @@
 						<a class="dropdown-item" href="telalogin.jsp">Entrar</a>
 						<a class="dropdown-item" href="FormCliente.jsp">Cadastrar</a>
 						<a class="dropdown-item" href="telalogin.jsp">Meus Dados</a> <a
-							class="dropdown-item" href="#">Meus Endereços</a> <a
+							class="dropdown-item" href="listaendereco.jsp">Meus Endereços</a> <a
 							class="dropdown-item" href="#">Meus Cartões</a> <a
 							class="dropdown-item" href="#">Meus Pedidos</a>
 							

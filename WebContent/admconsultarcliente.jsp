@@ -22,7 +22,8 @@
 			</tr>
 		</thead>
 		<%
-			for (Cliente cliente : clientes) {
+			if (clientes != null) {
+				for (Cliente cliente : clientes) {
 		%>
 		<tr>
 
@@ -47,6 +48,7 @@
 			<>
 		</tr>
 		<%
+				}
 			}
 		%>
 	</table>

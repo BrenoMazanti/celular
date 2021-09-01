@@ -1,8 +1,10 @@
 package br.edu.fatec.celular.vh;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.edu.fatec.celular.dao.EnderecoDAO;
 import br.edu.fatec.celular.dominio.Cidade;
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.dominio.Endereco;
@@ -26,16 +29,17 @@ public class EnderecoVh implements IViewHelper{
 		Date dtCadastro;
 		Calendar calendar;
 		String descricao;
-		TipoResidencia tipoResidencia;
+		//TipoResidencia tipoResidencia;
 		String logradouro;
 		String numero;
 		String complemento;
 		String bairro;
 		String cep;
-		Boolean principal; // define se é o endereço principal para entrega
-		Boolean cobranca; // define se é o endereço de cobrança
-		Cidade cidade;
-		Cliente cliente;
+		Boolean principal = false; // define se é o endereço principal para entrega
+		Boolean cobranca = false; // define se é o endereço de cobrança
+		String cidade;
+		String uf;
+		Cliente cliente = new Cliente();
 		
 		if (operacao != null && operacao.equals("SALVAR")) {
 			
@@ -47,10 +51,10 @@ public class EnderecoVh implements IViewHelper{
 			else
 				descricao = "";
 			
-			if (req.getParameter("txtTipoResidencia") != null && !req.getParameter("txtTipoResidencia").equals(""))
-				tipoResidencia.setCodigo(Integer.parseInt(req.getParameter("txtTipoResidencia")));
-			else
-				tipoResidencia = 0;
+			//if (req.getParameter("txtTipoResidencia") != null && !req.getParameter("txtTipoResidencia").equals(""))
+			//	tipoResidencia.setCodigo(Integer.parseInt(req.getParameter("txtTipoResidencia")));
+			//else
+			//	tipoResidencia = 0;
 			
 			if (req.getParameter("txtLogradouro") != null && !req.getParameter("txtLogradouro").equals(""))
 				logradouro = req.getParameter("txtLogradouro");
@@ -77,46 +81,78 @@ public class EnderecoVh implements IViewHelper{
 			else
 				bairro = "";
 			
-			/*if (req.getParameter("txtEstado") != null && !req.getParameter("txtEstado").equals(""))
-				estado = req.getParameter("txtEstado"));
+			if (req.getParameter("txtEstado") != null && !req.getParameter("txtEstado").equals(""))
+				uf = req.getParameter("txtEstado");
 			else
-				estado = null;*/
+				uf = null;
 			
 			if (req.getParameter("txtCidade") != null && !req.getParameter("txtCidade").equals(""))
-				cidade.setId(Integer.parseInt(req.getParameter("txtCidade")));
+				cidade = req.getParameter("txtCidade");
 			else
 				cidade = null;
 			
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			
 			endereco.setDtCadastro(dtCadastro);
-			endereco.setDescricao(descricao);
-			endereco.setLogradouro(logradouro);
-			endereco.setNumero(numero);
-			endereco.setComplemento(complemento);
-			endereco.setBairro(bairro);
+			endereco.setDescricao(descricao.toUpperCase());
+			endereco.setLogradouro(logradouro.toUpperCase());
+			endereco.setNumero(numero.toUpperCase());
+			endereco.setComplemento(complemento.toUpperCase());
+			endereco.setBairro(bairro.toUpperCase());
 			endereco.setCep(cep);
-			endereco.setCidade(cidade);
-			endereco.setTipoResidencia(tipoResidencia);
+			endereco.setCidade(cidade.toUpperCase());
+			endereco.setUf(uf);
 			endereco.setCliente(cliente);
 			endereco.setPrincipal(principal);
 			endereco.setCobranca(cobranca);
 	
 		}
 		
-		else if(operacao != null && operacao.equals("CONSULTAR")) {
-			if (req.getParameter("txtEmail") != null && !req.getParameter("txtEmail").equals(""))
-				email = req.getParameter("txtEmail");
-			else
-				email = "";
-
-			if (req.getParameter("txtSenha") != null && !req.getParameter("txtSenha").equals(""))
-				senha = req.getParameter("txtSenha");
-			else
-				senha = "";
+		else if(operacao != null && operacao.equals("ALTERAR")) {
 			
-			cli.setEmail(email);
-			cli.setSenha(senha);
+			calendar = Calendar.getInstance();
+			endereco.setDtAlteracao(calendar.getTime());
+			
+			if (req.getParameter("txtDescricao") != null && !req.getParameter("txtDescricao").equals(""))
+				endereco.setDescricao(req.getParameter("txtDescricao").toUpperCase());
+			
+			//if (req.getParameter("txtTipoResidencia") != null && !req.getParameter("txtTipoResidencia").equals(""))
+			//	tipoResidencia.setCodigo(Integer.parseInt(req.getParameter("txtTipoResidencia")));
+			//else
+			//	tipoResidencia = 0;
+			
+			if (req.getParameter("txtLogradouro") != null && !req.getParameter("txtLogradouro").equals(""))
+				endereco.setLogradouro(req.getParameter("txtLogradouro").toUpperCase());
+
+			if (req.getParameter("txtNumero") != null && !req.getParameter("txtNumero").equals(""))
+				endereco.setLogradouro(req.getParameter("txtNumero").toUpperCase());
+
+			if (req.getParameter("txtComplemento") != null && !req.getParameter("txtComplemento").equals(""))
+				endereco.setComplemento(req.getParameter("txtComplemento").toUpperCase());
+
+			if (req.getParameter("txtCep") != null && !req.getParameter("txtCep").equals(""))
+				endereco.setCep(req.getParameter("txtCep"));
+
+			if (req.getParameter("txtBairro") != null && !req.getParameter("txtBairro").equals(""))
+				endereco.setBairro(req.getParameter("txtBairro").toUpperCase());
+			
+			if (req.getParameter("txtEstado") != null && !req.getParameter("txtEstado").equals(""))
+				endereco.setUf(req.getParameter("txtEstado"));
+			
+			if (req.getParameter("txtCidade") != null && !req.getParameter("txtCidade").equals(""))
+				endereco.setCidade(req.getParameter("txtCidade").toUpperCase());
+			
+			
+			cliente = (Cliente) req.getSession().getAttribute("cliente");
+			
+			endereco.setCliente(cliente);
+			
+		}
+		
+		else if(operacao != null && operacao.equals("CONSULTAR")) {
+			cliente = (Cliente) req.getSession().getAttribute("cliente");
+			
+			endereco.setCliente(cliente);
 		}
 		
 		else
@@ -151,18 +187,24 @@ public class EnderecoVh implements IViewHelper{
 
 		if (resultado.getMsg() == null) {
 			if (operacao.equals("SALVAR")) {
-				resultado.setMsg("Cliente cadastrado com sucesso!");
+				resultado.setMsg("Endereço cadastrado com sucesso!");
 				req.setAttribute("resultado", resultado.getMsg());
-				d = req.getRequestDispatcher("FormCliente.jsp");
+				
+				Cliente cli = (Cliente) req.getSession().getAttribute("cliente");
+				cli.getEnderecos().add((Endereco) resultado.getEntidades().get(0));
+				
+				req.getSession().setAttribute("cliente", cli);
+				
+				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
 			if (operacao.equals("CONSULTAR")) {
-				System.out.println(resultado.getEntidades());
+				//System.out.println(resultado.getEntidades());
 				if(!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
-					req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
-					d = req.getRequestDispatcher("selecionarendereco.jsp");
+					req.setAttribute("enderecos", resultado.getEntidades());
+					d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 				}
 				else {
-					resultado.setMsg("Cliente não encontrado!");
+					resultado.setMsg("Endereço não encontrado!");
 					req.setAttribute("resultado", resultado.getMsg());
 					d = req.getRequestDispatcher("telalogin.jsp");
 				}
@@ -171,11 +213,42 @@ public class EnderecoVh implements IViewHelper{
 				
 			}
 			
+			if (operacao.equals("ALTERAR")) {
+				//System.out.println(resultado.getEntidades());
+				if(!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
+					
+					Cliente cli = (Cliente) req.getSession().getAttribute("cliente");
+					Endereco endereco = (Endereco) resultado.getEntidades().get(0);
+					
+					for(int i = 0; i < cli.getEnderecos().size(); i++) {
+						
+						if (endereco.getId() == cli.getEnderecos().get(i).getId()) {
+							cli.getEnderecos().set(i, endereco);
+							req.getSession().setAttribute("cliente", cli);
+							break;
+						}
+						
+					}
+					
+					d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+				}
+				else {
+					resultado.setMsg("Endereço não encontrado!");
+					req.setAttribute("resultado", resultado.getMsg());
+					d = req.getRequestDispatcher("telalogin.jsp");
+				}
+				
+			}
+			
 		}
 		else {
 			if(operacao.equals("SALVAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
-				d = req.getRequestDispatcher("FormCliente.jsp");
+				d = req.getRequestDispatcher("FormEndereco.jsp");
+			}
+			if(operacao.equals("ALTERAR")) {
+				req.setAttribute("resultado", resultado.getMsg());
+				d = req.getRequestDispatcher("FormEndereco.jsp");
 			}
 		}
 		

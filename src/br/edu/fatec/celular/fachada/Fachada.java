@@ -9,8 +9,10 @@ import java.util.Map;
 import br.edu.fatec.celular.dao.IDAO;
 import br.edu.fatec.celular.dao.AdministradorDAO;
 import br.edu.fatec.celular.dao.ClienteDAO;
+import br.edu.fatec.celular.dao.EnderecoDAO;
 import br.edu.fatec.celular.dominio.Administrador;
 import br.edu.fatec.celular.dominio.Cliente;
+import br.edu.fatec.celular.dominio.Endereco;
 import br.edu.fatec.celular.strategy.IStrategy;
 import br.edu.fatec.celular.strategy.ValidadorClienteSenha;
 import br.edu.fatec.celular.strategy.ValidadorClienteUnico;
@@ -30,8 +32,10 @@ public class Fachada implements IFachada {
 
 		ClienteDAO cliDAO = new ClienteDAO();
 		AdministradorDAO admDAO = new AdministradorDAO();
+		EnderecoDAO endDAO = new EnderecoDAO();
 		daos.put(Cliente.class.getName(), cliDAO);
 		daos.put(Administrador.class.getName(), admDAO);
+		daos.put(Endereco.class.getName(), endDAO);
 
 		// REGRAS DE NEGOCIO Cliente
 		ValidadorDadosObrigatoriosCliente vrDadosObrigatoriosCliente = new ValidadorDadosObrigatoriosCliente();

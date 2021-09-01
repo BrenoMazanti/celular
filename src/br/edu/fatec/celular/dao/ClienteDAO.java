@@ -10,6 +10,10 @@ import java.util.List;
 
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.dominio.EntidadeDominio;
+import br.edu.fatec.celular.dao.EnderecoDAO;
+import br.edu.fatec.celular.dominio.Endereco;
+import br.edu.fatec.celular.dao.CartaoDAO;
+import br.edu.fatec.celular.dominio.Cartao;
 
 public class ClienteDAO extends AbstractDAO {
 
@@ -176,7 +180,28 @@ public class ClienteDAO extends AbstractDAO {
 				cli.setTelefone(rs.getString("telefone"));
 				cli.setCelular(rs.getString("celular"));
 				// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
-
+				
+				Endereco endereco = new Endereco();
+				EnderecoDAO enderecodao = new EnderecoDAO();
+				endereco.setCliente(cli);
+				List<Endereco> enderecos = new ArrayList<Endereco>();
+				
+				for (EntidadeDominio d : enderecodao.consultar(endereco)) {
+						enderecos.add((Endereco) d);
+				}
+				//}
+				
+				cli.setEnderecos(enderecos);
+				
+				/*Cartao cartao = new Cartao();
+				cartao.setCliente(cli);
+				List<EntidadeDominio> listcartoes = new ArrayList<EntidadeDominio>();
+				CartaoDAO cartaodao = new CartaoDAO();
+				listcartoes = cartaodao.consultar(cartao);
+				for (EntidadeDominio d : listcartoes) {
+					cli.getCartoes().add((Cartao) d);
+				}*/
+				
 				clientes.add(cli);
 			}
 			return clientes;

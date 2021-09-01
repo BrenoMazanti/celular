@@ -115,23 +115,32 @@ public class ClienteVh implements IViewHelper {
 		
 		else if (operacao != null && operacao.equals("ALTERAR")) {
 			cli = (Cliente) req.getSession().getAttribute("cliente");
-
+			
+			calendar = Calendar.getInstance();
+			cli.setDtAlteracao(calendar.getTime());
+			
 			//Não poderá alterar CPF e email
 			//if (req.getParameter("txtEmail") != null && !req.getParameter("txtEmail").equals(""))
 				//cli.setEmail(req.getParameter("txtEmail"));
 
 			if (req.getParameter("txtSenha") != null && !req.getParameter("txtSenha").equals(""))
-				cli.setSenha(req.getParameter("txtSenha"));
+				senha = req.getParameter("txtSenha");
+			else
+				senha = cli.getSenha();
 
 			if (req.getParameter("txtConfirmarSenha") != null && !req.getParameter("txtConfirmarSenha").equals(""))
-				cli.setConfirmarSenha(req.getParameter("txtConfirmarSenha"));
+				confirmarSenha = req.getParameter("txtConfirmarSenha");
+			else
+				cli.setConfirmarSenha(cli.getSenha());
+			
+			cli.setSenha(senha);
 			
 			//Não poderá alterar CPF e email
 			//if (req.getParameter("txtCpf") != null && !req.getParameter("txtCpf").equals(""))
-				//cli.setCpf(req.getParameter("txtCpf"));
+			//	cli.setCpf(req.getParameter("txtCpf"));
 
 			if (req.getParameter("txtNome") != null && !req.getParameter("txtNome").equals(""))
-				cli.setNome(req.getParameter("txtNome"));
+				cli.setNome(req.getParameter("txtNome").toUpperCase());
 
 			if (req.getParameter("txtDataNascimento") != null && !req.getParameter("txtDataNascimento").equals(""))
 				cli.setDataNascimento(req.getParameter("txtDataNascimento"));
@@ -144,6 +153,7 @@ public class ClienteVh implements IViewHelper {
 
 			if (req.getParameter("txtCelular") != null && !req.getParameter("txtCelular").equals(""))
 				cli.setCelular(req.getParameter("txtCelular"));
+			
 		}
 
 		/*else {
@@ -191,17 +201,6 @@ public class ClienteVh implements IViewHelper {
 					}
 				}
 				
-				else if (operacao.equals("LOGIN")) {
-					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
-						req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
-						d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
-					} else {
-						resultado.setMsg("Cliente_não_encontrado!");
-						req.setAttribute("resultado", resultado.getMsg());
-						d = req.getRequestDispatcher("telalogin.jsp");
-					}
-				}
-			
 				else if (operacao.equals("LOGIN")) {
 					if (!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
 						req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));

@@ -13,8 +13,8 @@ public class Endereco extends EntidadeDominio {
 	private Boolean principal; // define se é o endereço principal para entrega
 	private Boolean cobranca; // define se é o endereço de cobrança
 	private Cliente cliente;
-	private Cidade cidade;
-	private TipoResidencia tipoResidencia;
+	private String cidade;
+	private String uf;
 	
 	public String getLogradouro() {
 		return logradouro;
@@ -65,17 +65,17 @@ public class Endereco extends EntidadeDominio {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public Cidade getCidade() {
+	public String getCidade() {
 		return cidade;
 	}
-	public void setCidade(Cidade cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public TipoResidencia getTipoResidencia() {
-		return tipoResidencia;
+	public String getUf() {
+		return uf;
 	}
-	public void setTipoResidencia(TipoResidencia tipoResidencia) {
-		this.tipoResidencia = tipoResidencia;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 	
 	public String getComplemento() {
