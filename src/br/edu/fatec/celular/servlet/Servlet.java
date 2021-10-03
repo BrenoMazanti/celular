@@ -24,11 +24,16 @@ import br.edu.fatec.celular.vh.AdministradorVh;
 import br.edu.fatec.celular.vh.CartaoVh;
 import br.edu.fatec.celular.vh.ClienteVh;
 import br.edu.fatec.celular.vh.EnderecoVh;
+import br.edu.fatec.celular.vh.CelularVh;
 
 /**
  * Servlet implementation class Servlet
  */
-@WebServlet(urlPatterns = {"/Cliente", "/Endereco", "/Cartao", "/Administrador"})
+@WebServlet(urlPatterns = {"/Cliente"
+                         , "/Endereco"
+                         , "/Cartao"
+                         , "/Administrador"
+                         , "/Celular"})
 public class Servlet extends HttpServlet {	
 	private static final long serialVersionUID = 1L;
 	private Map <String, IViewHelper> mapavh;
@@ -52,6 +57,7 @@ public class Servlet extends HttpServlet {
     	mapavh.put("/celular/Endereco", new EnderecoVh());
     	mapavh.put("/celular/Cartao", new CartaoVh());
     	mapavh.put("/celular/Administrador", new AdministradorVh());
+    	mapavh.put("/celular/Celular", new CelularVh());
     	
     }
 

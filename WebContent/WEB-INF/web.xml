@@ -5,6 +5,6 @@
     id="WebApp_ID" version="3.0">
 	<display-name>celular</display-name>
 	<welcome-file-list>
-		<welcome-file>telainicial.jsp</welcome-file>
+		<welcome-file>iniciar.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

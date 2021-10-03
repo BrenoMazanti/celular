@@ -1,6 +1,7 @@
 <%@ include file="/Componentes/EstruturaInicio.jsp"%>
 </head>
 <body>
+	<%@ include file="Componentes/Cabecalho.jsp"%>
 	<div class="row" align="center" style="margin-top: 10%">
 		<div class="col-8">
 			<div class="row">
@@ -12,7 +13,7 @@
 						<div class="card-body">
 							<h5 class="card-title">Meu Cartão Visa</h5>
 							<p class="card-text">****1505</p>
-							<a href="formapagamento.jsp" class="btn btn-primary">Selecionar</a>
+							<a href="#" class="btn btn-primary">Selecionar</a>
 							<a href="#" class="btn btn-primary">Editar</a>
 						</div>
 					</div>

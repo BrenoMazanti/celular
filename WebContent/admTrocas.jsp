@@ -3,7 +3,7 @@
 <body>
 	<%@ include file="Componentes/admCabecalho.jsp"%>
 	
-	<h1 align="center" margin=10px>PEDIDOS</h1>
+	<h1 align="center" margin=10px>TROCAS</h1>
 	<table class="table table-striped" style="margin-left: 5%; margin-right: 5%" id="pedidos">
 		<thead class="thead-light">
 			<tr>
@@ -16,13 +16,13 @@
 			</tr>
 		</thead>
 		<%
-			for (int i = 0; i < 10; i++) {
+			for (int i = 1; i < 2; i++) {
 		%>
 		<tr>
 			<td style="width: 200px"></td>
 			<%
 				out.println("<td id = " + i + ">");
-					out.println("12373" + i);
+					out.println("03468" + i);
 			%>
 			</td>
 			<%
@@ -34,9 +34,8 @@
 					<select class="form-control"
 						id="txtStatus" name="txtStatus">
 						<option value="Aguardando">Aguardando aprovação</option>
-						<option value="Aprovado">Aprovado</option>
-						<option value="Em transporte">Em transporte</option>
-						<option value="Entregue">Entregue</option>
+						<option value="Aprovado">Aguardando envio dos produtos</option>
+						<option value="Finalizada" disabled>Finalizada</option>
 					</select>
 				</div>
 			</td>
@@ -48,8 +47,8 @@
 			</td>
 			<td style="width: 200px">
 				
-				<a href="#"
-				class="btn btn-primary" />Informações do Pedido</a>
+				<a href="admFormTroca.jsp"
+				class="btn btn-primary" />Informações da Troca</a>
 				
 			</td>
 		</tr>

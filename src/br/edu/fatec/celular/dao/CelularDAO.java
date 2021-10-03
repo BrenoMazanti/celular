@@ -13,7 +13,6 @@ import br.edu.fatec.celular.dominio.CelularVariedade;
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.dominio.EntidadeDominio;
 import br.edu.fatec.celular.dominio.Marca;
-import br.edu.fatec.celular.dao.EnderecoDao;
 import br.edu.fatec.celular.dominio.Endereco;
 import br.edu.fatec.celular.dominio.IDominio;
 
@@ -37,27 +36,24 @@ public class CelularDAO extends AbstractDAO{
 				PreparedStatement pst = null;
 				StringBuilder sql = new StringBuilder();
 
-				if (celular.getId() != null) {
+				if (celular.getDescricao() != null && celular.getId() != null) {
 					sql.append("SELECT tb_celular.* "
-							 + ", tb_celular_variedade.*"
-							 + ", tb_cor.*"
-							 + ", tb_armazenamento.*"
-							 + ", tb_marca.*"
-							 + ", tb_so.*"
 							 + "FROM tb_celular "
-							 + "JOIN tb_celular_variedade ON tb_celular.id = tb_celular_variedade.fk_celular"
-							 + "JOIN tb_cor ON tb_cor.id = tb_celular_variedade.fk_cor"
-							 + "JOIN tb_armazenamento ON tb_armazenamento.id = tb_celular_variedade.fk_armazenamento "
-							 + "JOIN tb_marca ON tb_marca.id = tb_celular.fk_marca"
-							 + "JOIN tb_cor ON tb_cor.id = tb_celular.fk_cor"
 							 + "WHERE tb_celular.descricao LIKE '%?%' OR tb_celular.id = ? ;");
+					
+					pst.setString(1, celular.getDescricao());
+					pst.setInt(2, celular.getId());
+				}
+				
+				else if (celular.getId() != null) {
+					sql.append("SELECT tb_celular.* "
+							 + "FROM tb_celular "
+							 + "WHERE tb_celular.id = ? ;");
+					
+					pst.setInt(1, celular.getId());
 				}
 
 				try {
-					if (celular.getDescricao() != null && celular.getId() != null) {
-						pst.setString(1, celular.getDescricao());
-						pst.setInt(2, celular.getId());
-					}
 					
 					openConnection();
 					pst = connection.prepareStatement(sql.toString());
@@ -75,48 +71,18 @@ public class CelularDAO extends AbstractDAO{
 						cel.setAltura(rs.getString("altura"));
 						cel.setLargura(rs.getString("largura"));
 						cel.setComprimento(rs.getString("comprimento"));
-						cel.setCameraFrontal(rs.getString("camerafrontal"));
-						cel.setCameraTraseira(rs.getString("cameratraseira"));
+						cel.setCameraFrontal(rs.getString("camera_frontal"));
+						cel.setCameraTraseira(rs.getString("camera_traseira"));
 						cel.setComponentes(rs.getString("componentes"));
 						cel.setPeso(rs.getString("peso"));
 						cel.setPreco(rs.getDouble("preco"));
 						cel.setProcessador(rs.getString("processador"));
 						cel.setRam(rs.getString("ram"));
 						cel.setResolucao(rs.getString("resolucao"));
-						cel.setTamanhoTela(rs.getString("tamanhotela"));
-						cel.setTipoChip(rs.getString("tipochip"));
+						cel.setTamanhoTela(rs.getString("tamanho_tela"));
+						cel.setTipoChip(rs.getString("tipo_chip"));
+						cel.setFoto(rs.getString("foto"));
 				        
-						Marca marca = new Marca();
-						marca.setId(rs.getInt("fk_marca"));
-						List<EntidadeDominio> marcas = new ArrayList<EntidadeDominio>();
-						MarcaDAO marcadao = new MarcaDAO();
-						marcas = marcadao.consultar(marca);
-						for (EntidadeDominio d : marcas) {
-							cel.setMarca((Marca) d);
-						}
-						
-						Endereco endereco = new Endereco();
-						endereco.setIdcliente(cli.getId());
-						List<IDominio> listendereco = new ArrayList<IDominio>();
-						EnderecoDao enderecodao = new EnderecoDao();
-						listendereco = enderecodao.listarFiltro(endereco);
-						for (IDominio d : listendereco) {
-							cli.getEndereList().add((Endereco) d);
-						}
-						
-						cel.getMarca().setId("tb_marca.id");
-						cel.getMarca().setNome("tb_marca.nome");
-						cel.getSo().setId("tb_so.id");
-						cel.getSo().setDescricao("tb_so.id");
-						
-						var.setId("id");
-						var.getCelular().setId("tb_celular.id");
-						var.getArmazenamento().setId("tb_armazenamento.id");
-						var.getCor().setId("tb_cor.id");
-						
-						if (cel.getId() == var.getCelular().getId()) {
-							cel.getVariedades().add(var);
-						}
 						// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
 						
 						celulares.add(cel);
@@ -146,7 +112,7 @@ public class CelularDAO extends AbstractDAO{
 		PreparedStatement pst = null;
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT tb_celular.* "
+		/*sql.append("SELECT tb_celular.* "
 				+ ", tb_celular_variedade.*"
 				 + ", tb_cor.*"
 				 + ", tb_armazenamento.*"
@@ -156,8 +122,11 @@ public class CelularDAO extends AbstractDAO{
 				 + "JOIN tb_celular_variedade ON tb_celular.id = tb_celular_variedade.fk_celular"
 				 + "JOIN tb_cor ON tb_cor.id = tb_celular_variedade.fk_cor"
 				 + "JOIN tb_armazenamento ON tb_armazenamento.id = tb_celular_variedade.fk_armazenamento "
-				 + "JOIN tb_marca ON tb_marca.id = tb_celular.fk_marca ;");
-
+				 + "JOIN tb_marca ON tb_marca.id = tb_celular.fk_marca ;");*/
+        
+		sql.append("SELECT tb_celular.* "
+				+ "FROM tb_celular");
+		
 		try {
 			openConnection();
 			pst = connection.prepareStatement(sql.toString());
@@ -175,18 +144,20 @@ public class CelularDAO extends AbstractDAO{
 				cel.setAltura(rs.getString("altura"));
 				cel.setLargura(rs.getString("largura"));
 				cel.setComprimento(rs.getString("comprimento"));
-				cel.setCameraFrontal(rs.getString("camerafrontal"));
-				cel.setCameraTraseira(rs.getString("cameratraseira"));
+				cel.setCameraFrontal(rs.getString("camera_frontal"));
+				cel.setCameraTraseira(rs.getString("camera_traseira"));
 				cel.setComponentes(rs.getString("componentes"));
 				cel.setPeso(rs.getString("peso"));
-				cel.setPreco(rs.getString("preco"));
+				cel.setPreco(rs.getDouble("preco"));
 				cel.setProcessador(rs.getString("processador"));
 				cel.setRam(rs.getString("ram"));
 				cel.setResolucao(rs.getString("resolucao"));
-				cel.setTamanhoTela(rs.getString("tamanhotela"));
-				cel.setTipoChip(rs.getString("tipochip"));
+				cel.setTamanhoTela(rs.getString("tamanho_tela"));
+				cel.setTipoChip(rs.getString("tipo_chip"));
+				cel.setFoto(rs.getString("foto"));
+				//cel.setPrecicacao(rs.getInt("fk_precificacao"));
 				
-				cel.getMarca().setId("tb_marca.id");
+				/*cel.getMarca().setId("tb_marca.id");
 				cel.getMarca().setNome("tb_marca.nome");
 				cel.getSo().setId("tb_so.id");
 				cel.getSo().setDescricao("tb_so.id");
@@ -208,7 +179,7 @@ public class CelularDAO extends AbstractDAO{
 				} catch (Exception e) { // era SQLException
 					e.printStackTrace();
 				}
-				
+				*/
 				celulares.add(cel);
 			}
 			return celulares;

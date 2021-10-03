@@ -1,33 +1,55 @@
-<%@ include file="/Componentes/EstruturaInicio.jsp"%>
+<%@ include file="./Componentes/EstruturaInicio.jsp"%>
+<%@ include file="./CSS/telas.css"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.fatec.celular.dominio.Cliente"%>
+<%@page import="br.edu.fatec.celular.dominio.Cartao"%>
+<title>Meus Cartões</title>
 </head>
 <body>
 	<%@ include file="./Componentes/Cabecalho.jsp"%>
-	<h2 align="center" margin=10px>CARTÕES DE JOÃO</h2>
-	
-	<div class="row" align="center">
-		<div class="col-8">
-			<div class="row">
-				<%
-					for (int j = 0; j < 4; j++) {
-				%>
-				<div class="col-3">
-					<div class="card" align="center" style="width: 18rem;">
-						<div class="card-body">
-							<h5 class="card-title">Meu Cartão Visa</h5>
-							<p class="card-text">****1505</p>
-							<a href="FormCartaoprot.jsp" class="btn btn-primary">Editar</a>
-							<a href="#" class="btn btn-primary">Excluir</a>
+	<table style="margin: 60px">
+		<%
+			//session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
+			Cliente cliente = (Cliente) session.getAttribute("cliente");
+			if (cliente == null) {
+				response.sendRedirect("telalogin.jsp");
+			}
+			List<Cartao> cartoes = new ArrayList<Cartao>();
+			cartoes = (List<Cartao>) request.getAttribute("cartoes");
+		%>
+		<tr><th><h2 align="center" margin=10px>
+			ENDEREÇOS DE <% if (cliente != null) { out.println(cliente.getNome()); }%>
+		</h2></th></tr>
+		<%
+			out.println("<tr><td style='margin: 60px'><div style='margin: 10px'><a href='FormEndereco.jsp' class='btn btn-primary'>Novo+</a></div></td></tr>");
+			if (cliente != null){
+				if (cartoes != null && !cartoes.isEmpty()){
+					int linha = 0;
+					for (Cartao d : cartoes) {
+			%>
+				<tr>
+					<td>
+						<div class="card" align="center" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
+								<p class="card-text"><%out.println(d.getNumero().substring(8));%></p>
+								<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
+									href="#" class="btn btn-primary">Excluir</a>
+							</div>
 						</div>
-					</div>
-				</div>
+					</td>
+				<tr>
 				<%
 					}
-				%>
-			</div>
-		</div>
-		<div class="col-4">
-					<a href="FormCartaoprot.jsp" class="btn btn-primary" style="">Novo+</a>
-		</div>
-	</div>
+				}
+			}	
+		%>
+	</table>
+	<footer>
+		
+	</footer>
+	<script>
+	</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="telainicial.jsp"> <img
+	<a class="navbar-brand" href="./Celular?operacao=LISTAR&pagina=telainicial.jsp"> <img
 		src="./Imagens/cell.png" style="height: 150px; width: 150px;"><label
 		style="font-size: 26pt; font-family: Magneto;">Celulares</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -32,8 +32,9 @@
 						<a class="dropdown-item" href="FormCliente.jsp">Meus Dados</a>
 						<a class="dropdown-item" href="trocasenha.jsp">Alterar Senha</a>
                         <a class="dropdown-item" href="listaendereco.jsp">Meus Endereços</a>
-                        <a class="dropdown-item" href="listacartoes.jsp">Meus Cartões</a> 
-						<a class="dropdown-item" href="#">Meus Pedidos</a>
+                        <a class="dropdown-item" href="./Cartao?operacao=CONSULTAR&pagina=listacartoes.jsp">Meus Cartões</a> 
+						<a class="dropdown-item" href="MeusPedidos.jsp">Meus Pedidos</a>
+						<a class="dropdown-item" href="MinhasTrocas.jsp">Minhas Trocas</a>
 						<a class="dropdown-item" href="Logout.jsp">Sair</a>
 
 					<% } 
@@ -42,10 +43,11 @@
 					
 						<a class="dropdown-item" href="telalogin.jsp">Entrar</a>
 						<a class="dropdown-item" href="FormCliente.jsp">Cadastrar</a>
-						<a class="dropdown-item" href="telalogin.jsp">Meus Dados</a> <a
-							class="dropdown-item" href="listaendereco.jsp">Meus Endereços</a> <a
-							class="dropdown-item" href="#">Meus Cartões</a> <a
-							class="dropdown-item" href="#">Meus Pedidos</a>
+						<a class="dropdown-item" href="telalogin.jsp">Meus Dados</a> 
+						<a class="dropdown-item" href="listaendereco.jsp">Meus Endereços</a> 
+						<a class="dropdown-item" href="#">Meus Cartões</a> 
+						<a class="dropdown-item" href="MeusPedidos.jsp">Meus Pedidos</a>
+						<a class="dropdown-item" href="MinhasTrocas.jsp">Minhas Trocas</a>
 							
 					<% }%>
 

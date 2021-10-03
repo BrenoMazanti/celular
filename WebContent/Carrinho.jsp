@@ -14,7 +14,7 @@ img {
 			<div class="row" style="padding-bottom: 35px; font-weight: bold;">
 				<div class="col-3 offset-3">Descrição do produto</div>
 				<div class="col-4">Quantidade</div>
-				<div class="col-2">Preço</div>
+				<div class="col-2">Preço Unitário</div>
 			</div>
 			<div class="row">
 				<div class="col-3">
@@ -23,7 +23,7 @@ img {
 				</div>
 				<div class="col-3">Smartphone Samsung Galaxy A7 32GB</div>
 				<div class="col-4">
-					<input type="number" width=40px id="txtQtde" min="1" max="5" style = "width: 50px">
+					<input type="number" value="1" width=40px id="txtQtde" min="1" max="5" style = "width: 50px">
 				</div>
 				<div class="col-2">R$1500,00</div>
 			</div>

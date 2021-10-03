@@ -27,97 +27,70 @@ public class CartaoDAO extends AbstractDAO{
 	}
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
-				Cartao cartao = (Cartao) cartao;
-				PreparedStatement pst = null;
-				StringBuilder sql = new StringBuilder();
+		Cartao cartao = (Cartao) entidade;
+		PreparedStatement pst = null;
+		StringBuilder sql = new StringBuilder();
 
-				if (cartao.getCliente() != null) {
-					sql.append("SELECT * "
-							 + "FROM tb_cartao "
-							 + "WHERE fk_cliente = ? ;");
-				}
+		
 
-				try {
-					openConnection();
-					pst = connection.prepareStatement(sql.toString());
-					
-					if (cartao.getCliente().getId() != null) {
-						pst.setInt(1, cartao.getCliente().getId());
-					}
-		            
-					List<EntidadeDominio> celulares = new ArrayList<EntidadeDominio>();
-					ResultSet rs = pst.executeQuery();
-					while (rs.next()) {
+		//if(cartao.getId() != null) {
+		//	sql.append("AND id = ?");
+		//}
+		
+		if (cartao.getCliente().getId() != null) {
+			sql.append("SELECT * "
+					 + "FROM tb_cartao "
+					 + "WHERE ativo = true "
+			         + "AND fk_cliente = ?");
+		}
 
-						cartao.setDtCadastro(rs.getDate("dt_cadastro"));
-						cartao.setDtAlteracao(rs.getDate("dt_alteracao"));
-						cartao.setId(rs.getInt("id"));
-						cartao.setDescricao(rs.getString("descricao"));
-						cartao.setAltura(rs.getString("altura"));
-						cartao.setLargura(rs.getString("largura"));
-						cartao.setComprimento(rs.getString("comprimento"));
-						cartao.setCameraFrontal(rs.getString("camerafrontal"));
-						cartao.setCameraTraseira(rs.getString("cameratraseira"));
-						cartao.setComponentes(rs.getString("componentes"));
-						cartao.setPeso(rs.getString("peso"));
-						cartao.setPreco(rs.getDouble("preco"));
-						cartao.setProcessador(rs.getString("processador"));
-						cartao.setRam(rs.getString("ram"));
-						cartao.setResolucao(rs.getString("resolucao"));
-						cartao.setTamanhoTela(rs.getString("tamanhotela"));
-						cartao.setTipoChip(rs.getString("tipochip"));
-				        
-						Marca marca = new Marca();
-						marca.setId(rs.getInt("fk_marca"));
-						List<EntidadeDominio> marcas = new ArrayList<EntidadeDominio>();
-						MarcaDAO marcadao = new MarcaDAO();
-						marcas = marcadao.consultar(marca);
-						for (EntidadeDominio d : marcas) {
-							cel.setMarca((Marca) d);
-						}
-						
-						Cartao cartao = new Cartao();
-						cartao.setIdcliente(cli.getId());
-						List<IDominio> listcartao = new ArrayList<IDominio>();
-						CartaoDao cartaodao = new CartaoDao();
-						listcartao = cartaodao.listarFiltro(cartao);
-						for (IDominio d : listcartao) {
-							cli.getEndereList().add((Cartao) d);
-						}
-						
-						cel.getMarca().setId("tb_marca.id");
-						cel.getMarca().setNome("tb_marca.nome");
-						cel.getSo().setId("tb_so.id");
-						cel.getSo().setDescricao("tb_so.id");
-						
-						var.setId("id");
-						var.getCelular().setId("tb_celular.id");
-						var.getArmazenamento().setId("tb_armazenamento.id");
-						var.getCor().setId("tb_cor.id");
-						
-						if (cel.getId() == var.getCelular().getId()) {
-							cel.getVariedades().add(var);
-						}
-						// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
-						
-						celulares.add(cel);
-					}
-					return celulares;
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
+		try {
+			openConnection();
+			pst = connection.prepareStatement(sql.toString());
+			
+			//if(cartao.getId() != null) {
+			//	pst.setInt(1, cartao.getId());
+			//}
+			
+			if (cartao.getCliente().getId() != null) {
+				pst.setInt(1, cartao.getCliente().getId());
+			}
+            
+			List<EntidadeDominio> cartoes = new ArrayList<EntidadeDominio>();
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
 
-					try {
-						pst.close();
-						if (ctrlTransaction)
-							connection.close();
+				cartao.setDtCadastro(rs.getDate("dt_cadastro"));
+				cartao.setDtAlteracao(rs.getDate("dt_alteracao"));
+				cartao.setId(rs.getInt("id"));
+				cartao.setDescricao(rs.getString("descricao"));
+				cartao.setNumero(rs.getString("numero"));
+				cartao.setMes(rs.getString("mes"));
+				cartao.setAno(rs.getString("ano"));
+				cartao.setCodigo(rs.getString("codigo"));
+				cartao.setNomeTitular(rs.getString("nome_titular"));
+				cartao.setCpfTitular(rs.getString("cpf_titular"));
+				cartao.getCliente().setId(rs.getInt("fk_cliente"));
+				//cartao.getBandeira().setId(rs.getInt("fk_bandeira"));
+				
+				cartoes.add(cartao);
+			}
+			return cartoes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				// termino equivocado
-				return null;
+			try {
+				pst.close();
+				if (ctrlTransaction)
+					connection.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		// termino equivocado
+		return null;
 	}
 	
 	@Override

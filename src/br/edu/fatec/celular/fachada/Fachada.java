@@ -8,11 +8,15 @@ import java.util.Map;
 
 import br.edu.fatec.celular.dao.IDAO;
 import br.edu.fatec.celular.dao.AdministradorDAO;
+import br.edu.fatec.celular.dao.CartaoDAO;
 import br.edu.fatec.celular.dao.ClienteDAO;
 import br.edu.fatec.celular.dao.EnderecoDAO;
+import br.edu.fatec.celular.dao.CelularDAO;
 import br.edu.fatec.celular.dominio.Administrador;
+import br.edu.fatec.celular.dominio.Cartao;
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.dominio.Endereco;
+import br.edu.fatec.celular.dominio.Celular;
 import br.edu.fatec.celular.strategy.IStrategy;
 import br.edu.fatec.celular.strategy.ValidadorClienteSenha;
 import br.edu.fatec.celular.strategy.ValidadorClienteUnico;
@@ -33,9 +37,13 @@ public class Fachada implements IFachada {
 		ClienteDAO cliDAO = new ClienteDAO();
 		AdministradorDAO admDAO = new AdministradorDAO();
 		EnderecoDAO endDAO = new EnderecoDAO();
+		CartaoDAO cartaoDAO = new CartaoDAO();
+		CelularDAO celDAO = new CelularDAO();
 		daos.put(Cliente.class.getName(), cliDAO);
 		daos.put(Administrador.class.getName(), admDAO);
 		daos.put(Endereco.class.getName(), endDAO);
+		daos.put(Cartao.class.getName(), cartaoDAO);
+		daos.put(Celular.class.getName(), celDAO);
 
 		// REGRAS DE NEGOCIO Cliente
 		ValidadorDadosObrigatoriosCliente vrDadosObrigatoriosCliente = new ValidadorDadosObrigatoriosCliente();
@@ -172,8 +180,8 @@ public class Fachada implements IFachada {
 
 		resultado = new Resultado();
 		String nmClasse = entidade.getClass().getName();
-
-		String msg = executarRegras(entidade, "EXCLUIR");
+		
+		String msg = executarRegras(entidade, "CONSULTAR");
 
 		if (msg == null) {
 			IDAO dao = daos.get(nmClasse);
@@ -199,7 +207,7 @@ public class Fachada implements IFachada {
 		resultado = new Resultado();
 		String nmClasse = entidade.getClass().getName();
 
-		String msg = executarRegras(entidade, "EXCLUIR");
+		String msg = executarRegras(entidade, "LISTAR");
 
 		if (msg == null) {
 			IDAO dao = daos.get(nmClasse);

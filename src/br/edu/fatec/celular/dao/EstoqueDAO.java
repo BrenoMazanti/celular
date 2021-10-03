@@ -43,7 +43,7 @@ public class EstoqueDAO extends AbstractDAO{
 					pst = connection.prepareStatement(sql.toString());
 					
 					if (est.getCelular() != null) {
-						pst.setInt(1, est.getCelular().getId);
+						pst.setInt(1, est.getCelular().getId());
 					}
 		            
 					List<EntidadeDominio> ests = new ArrayList<EntidadeDominio>();

@@ -16,6 +16,7 @@ public class Celular extends EntidadeDominio {
 	private String ram;
 	private String processador;
 	private String componentes;
+	private String foto;
 		
 	//private List<Cor> cores; ////
 	//private List<Armazenamento> armazenamentos; ////
@@ -128,6 +129,12 @@ public class Celular extends EntidadeDominio {
 	}
 	public void setComponentes(String componentes) {
 		this.componentes = componentes;
+	}
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 }
