@@ -7,18 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.fatec.celular.dominio.Cliente;
-import br.edu.fatec.celular.dominio.Cartao;
+import br.edu.fatec.celular.dominio.Endereco;
+import br.edu.fatec.celular.dominio.Carrinho;
+import br.edu.fatec.celular.dominio.Carrinhoi;
 import br.edu.fatec.celular.dominio.EntidadeDominio;
 import br.edu.fatec.celular.dominio.IDominio;
 
-public class CartaoDAO extends AbstractDAO{
-	public CartaoDAO() {
-		super("tb_cartao", "id");
+public class CarrinhoDAO extends AbstractDAO{
+	public CarrinhoDAO() {
+		super("tb_carrinho", "id");
 	}
 	
 	@Override
 	public void salvar(EntidadeDominio entidade) {
-		
+		Carrinho carrinho = (Carrinho) entidade;
+		PreparedStatement pst = null;
+		StringBuilder sql = new StringBuilder();
 	}
 	
 	@Override
@@ -27,56 +31,61 @@ public class CartaoDAO extends AbstractDAO{
 	}
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
-		Cartao cartao = (Cartao) entidade;
+		Carrinho carrinho = (Carrinho) entidade;
 		PreparedStatement pst = null;
 		StringBuilder sql = new StringBuilder();
 
 		
 
-		//if(cartao.getId() != null) {
+		//if(carrinho.getId() != null) {
 		//	sql.append("AND id = ?");
 		//}
 		
-		if (cartao.getCliente().getId() != null) {
+		if (carrinho.getCliente().getId() != null) {
 			sql.append("SELECT * "
-					 + "FROM tb_cartao "
+					 + "FROM tb_carrinho "
 					 + "WHERE ativo = true "
-			         + "AND fk_cliente = ? "
-			         + "ORDER BY id");
+			         + "AND fk_cliente = ?");
 		}
 
 		try {
 			openConnection();
 			pst = connection.prepareStatement(sql.toString());
 			
-			//if(cartao.getId() != null) {
-			//	pst.setInt(1, cartao.getId());
+			//if(carrinho.getId() != null) {
+			//	pst.setInt(1, carrinho.getId());
 			//}
 			
-			if (cartao.getCliente().getId() != null) {
-				pst.setInt(1, cartao.getCliente().getId());
+			if (carrinho.getCliente().getId() != null) {
+				pst.setInt(1, carrinho.getCliente().getId());
 			}
             
-			List<EntidadeDominio> cartoes = new ArrayList<EntidadeDominio>();
+			List<EntidadeDominio> carrinhos = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 
-				cartao.setDtCadastro(rs.getDate("dt_cadastro"));
-				cartao.setDtAlteracao(rs.getDate("dt_alteracao"));
-				cartao.setId(rs.getInt("id"));
-				cartao.setDescricao(rs.getString("descricao"));
-				cartao.setNumero(rs.getString("numero"));
-				cartao.setMes(rs.getString("mes"));
-				cartao.setAno(rs.getString("ano"));
-				cartao.setCodigo(rs.getString("codigo"));
-				cartao.setNomeTitular(rs.getString("nome_titular"));
-				cartao.setCpfTitular(rs.getString("cpf_titular"));
-				cartao.getCliente().setId(rs.getInt("fk_cliente"));
-				//cartao.getBandeira().setId(rs.getInt("fk_bandeira"));
+				carrinho.setDtCadastro(rs.getDate("dt_cadastro"));
+				carrinho.setDtAlteracao(rs.getDate("dt_alteracao"));
+				carrinho.setId(rs.getInt("fk_cliente"));
+				carrinho.getCliente().setId(rs.getInt("fk_cliente"));
+				carrinho.setPrecoTotal(rs.getDouble("preco_total"));
 				
-				cartoes.add(cartao);
+				Carrinhoi carrinhoi = new Carrinhoi();
+				CarrinhoiDAO carrinhoidao = new CarrinhoiDAO();
+				carrinhoi.setCarrinho(carrinho);
+				List<Carrinhoi> carrinhois = new ArrayList<Carrinhoi>();
+				
+				for (EntidadeDominio d : carrinhoidao.consultar(carrinhoi)) {
+					if(d != null) {
+						carrinhois.add((Carrinhoi) d);
+					}
+				}
+				
+				carrinho.setItens(carrinhois);
+				
+				carrinhos.add(carrinho);
 			}
-			return cartoes;
+			return carrinhos;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -97,7 +106,7 @@ public class CartaoDAO extends AbstractDAO{
 	@Override
 	public List<EntidadeDominio> listar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
-		Cartao cartao = (Cartao) entidade;
+		Carrinho carrinho = (Carrinho) entidade;
 		PreparedStatement pst = null;
 		StringBuilder sql = new StringBuilder();
 
@@ -120,12 +129,12 @@ public class CartaoDAO extends AbstractDAO{
 			List<EntidadeDominio> celulares = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				//Cartao cartao = new Cartao();
+				//Cartao carrinho = new Cartao();
 				//CelularVariedade var = new CelularVariedade();
 				
-				cartao.setDtCadastro(rs.getDate("dt_cadastro"));
-				cartao.setDtAlteracao(rs.getDate("dt_alteracao"));
-				cartao.setId(rs.getInt("id"));
+				carrinho.setDtCadastro(rs.getDate("dt_cadastro"));
+				carrinho.setDtAlteracao(rs.getDate("dt_alteracao"));
+				carrinho.setId(rs.getInt("id"));
 				
 				// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
                 
@@ -137,7 +146,7 @@ public class CartaoDAO extends AbstractDAO{
 					e.printStackTrace();
 				}
 				
-				celulares.add(cartao);
+				celulares.add(carrinho);
 			}
 			return celulares;
 		} catch (SQLException e) {

@@ -1,5 +1,6 @@
 package br.edu.fatec.celular.dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends EntidadeDominio{
@@ -12,8 +13,9 @@ public class Cliente extends EntidadeDominio{
 	private String sexo;
 	private String telefone;
 	private String celular;
-	private List<Endereco> enderecos;
-	private List<Cartao> cartoes;
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
+	private List<Cartao> cartoes = new ArrayList<Cartao>();
+	private Carrinho carrinho;
 	
 	public String getEmail() {
 		return email;
@@ -81,7 +83,12 @@ public class Cliente extends EntidadeDominio{
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-	
+	public Carrinho getCarrinho() {
+		return carrinho;
+	}
+	public void setCarrinhp(Carrinho carrinho) {
+		this.carrinho = carrinho;
+	}
 	
 	
 }

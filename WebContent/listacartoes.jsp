@@ -19,7 +19,7 @@
 			cartoes = (List<Cartao>) request.getAttribute("cartoes");
 		%>
 		<tr><th><h2 align="center" margin=10px>
-			ENDEREÇOS DE <% if (cliente != null) { out.println(cliente.getNome()); }%>
+			CARTÕES DE <% if (cliente != null) { out.println(cliente.getNome()); }%>
 		</h2></th></tr>
 		<%
 			out.println("<tr><td style='margin: 60px'><div style='margin: 10px'><a href='FormEndereco.jsp' class='btn btn-primary'>Novo+</a></div></td></tr>");

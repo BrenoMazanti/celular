@@ -1,5 +1,7 @@
 <%@ include file="./Componentes/EstruturaInicio.jsp"%>
 <%@ include file="./CSS/telas.css"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="br.edu.fatec.celular.dominio.Cliente"%>
 <%@page import="br.edu.fatec.celular.dominio.Endereco"%>
 <title>Meus Endereços</title>
@@ -9,6 +11,7 @@
 	<table style="margin: 60px">
 		<%
 			session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
+			session.setAttribute("pagina", "./Endereco?operacao=CONSULTAR&pagina=" + pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
 			Cliente cliente = (Cliente) session.getAttribute("cliente");
 			if (cliente == null) {
 				response.sendRedirect("telalogin.jsp");
@@ -20,9 +23,11 @@
 		<%
 			out.println("<tr><td style='margin: 60px'><div style='margin: 10px'><a href='FormEndereco.jsp' class='btn btn-primary'>Novo+</a></div></td></tr><tr>");
 			if (cliente != null){
-				if (cliente.getEnderecos() != null && !cliente.getEnderecos().isEmpty()){
+				List<Endereco> enderecos = new ArrayList<Endereco>();
+				enderecos = (List<Endereco>) request.getAttribute("enderecos");
+				if (enderecos != null && !enderecos.isEmpty()){
 					int linha = 0;
-					for (Endereco d : cliente.getEnderecos()) {
+					for (Endereco d : enderecos) {
 						if (linha == 4) {
 							linha = 0 ;
 							out.println("<tr>");

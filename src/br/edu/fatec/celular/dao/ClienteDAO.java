@@ -181,7 +181,7 @@ public class ClienteDAO extends AbstractDAO {
 				cli.setCelular(rs.getString("celular"));
 				// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
 				
-				Endereco endereco = new Endereco();
+				/*Endereco endereco = new Endereco();
 				EnderecoDAO enderecodao = new EnderecoDAO();
 				endereco.setCliente(cli);
 				List<Endereco> enderecos = new ArrayList<Endereco>();
@@ -189,7 +189,6 @@ public class ClienteDAO extends AbstractDAO {
 				for (EntidadeDominio d : enderecodao.consultar(endereco)) {
 						enderecos.add((Endereco) d);
 				}
-				//}
 				
 				cli.setEnderecos(enderecos);
 				

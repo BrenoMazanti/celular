@@ -103,7 +103,8 @@ public class EnderecoDAO extends AbstractDAO{
 				if (endereco.getCliente().getId() != null) {
 					sql.append("SELECT * "
 							 + "FROM tb_endereco "
-							 + "WHERE fk_cliente = ? AND ativo = true;");
+							 + "WHERE fk_cliente = ? AND ativo = true "
+							 + "ORDER BY id;");
 				}
 
 				try {
@@ -133,7 +134,8 @@ public class EnderecoDAO extends AbstractDAO{
 						endereco.setCobranca(rs.getBoolean("cobranca"));
 						endereco.getCliente().setId(rs.getInt("fk_cliente"));
 				   
-						
+						//System.out.println(endereco.getId());
+						//System.out.println(endereco.getDescricao());
 						// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
 						
 						enderecos.add(endereco);

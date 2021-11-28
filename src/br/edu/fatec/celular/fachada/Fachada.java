@@ -12,11 +12,17 @@ import br.edu.fatec.celular.dao.CartaoDAO;
 import br.edu.fatec.celular.dao.ClienteDAO;
 import br.edu.fatec.celular.dao.EnderecoDAO;
 import br.edu.fatec.celular.dao.CelularDAO;
+import br.edu.fatec.celular.dao.CarrinhoDAO;
+import br.edu.fatec.celular.dao.CarrinhoiDAO;
+import br.edu.fatec.celular.dao.PedidoDAO;
 import br.edu.fatec.celular.dominio.Administrador;
 import br.edu.fatec.celular.dominio.Cartao;
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.dominio.Endereco;
 import br.edu.fatec.celular.dominio.Celular;
+import br.edu.fatec.celular.dominio.Carrinho;
+import br.edu.fatec.celular.dominio.Carrinhoi;
+import br.edu.fatec.celular.dominio.Pedido;
 import br.edu.fatec.celular.strategy.IStrategy;
 import br.edu.fatec.celular.strategy.ValidadorClienteSenha;
 import br.edu.fatec.celular.strategy.ValidadorClienteUnico;
@@ -39,11 +45,17 @@ public class Fachada implements IFachada {
 		EnderecoDAO endDAO = new EnderecoDAO();
 		CartaoDAO cartaoDAO = new CartaoDAO();
 		CelularDAO celDAO = new CelularDAO();
+		CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
+		CarrinhoiDAO carrinhoiDAO = new CarrinhoiDAO();
+		PedidoDAO pedidoDAO = new PedidoDAO();
 		daos.put(Cliente.class.getName(), cliDAO);
 		daos.put(Administrador.class.getName(), admDAO);
 		daos.put(Endereco.class.getName(), endDAO);
 		daos.put(Cartao.class.getName(), cartaoDAO);
 		daos.put(Celular.class.getName(), celDAO);
+		daos.put(Carrinho.class.getName(), carrinhoDAO);
+		daos.put(Carrinhoi.class.getName(), carrinhoiDAO);
+		daos.put(Pedido.class.getName(), pedidoDAO);
 
 		// REGRAS DE NEGOCIO Cliente
 		ValidadorDadosObrigatoriosCliente vrDadosObrigatoriosCliente = new ValidadorDadosObrigatoriosCliente();

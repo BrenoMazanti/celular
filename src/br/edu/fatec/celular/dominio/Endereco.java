@@ -12,7 +12,7 @@ public class Endereco extends EntidadeDominio {
 	private String cep;
 	private Boolean principal; // define se é o endereço principal para entrega
 	private Boolean cobranca; // define se é o endereço de cobrança
-	private Cliente cliente;
+	private Cliente cliente = new Cliente();
 	private String cidade;
 	private String uf;
 	

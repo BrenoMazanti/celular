@@ -1,6 +1,6 @@
 package br.edu.fatec.celular.dominio;
 
-public class ItensPedido extends EntidadeDominio{
+public class Pedidoi extends EntidadeDominio{
 	private Celular celular;
 	private Double precoUni;
 	private Integer qtde;

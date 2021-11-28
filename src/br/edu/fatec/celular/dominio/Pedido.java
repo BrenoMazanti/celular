@@ -3,13 +3,15 @@ package br.edu.fatec.celular.dominio;
 import java.util.List;
 
 public class Pedido extends EntidadeDominio{
-	private List<ItensPedido> itens;
+	private List<Pedidoi> itens;
 	private Double precoTotal; // preço dos produtos, para mostrar deve somar o frete
 	private Endereco endereco;
 	private ValorFrete valorFrete;
 	private Cliente cliente;
 	private Pagamento pagamento;
-	private StatusPedido statusPedido;
+	private Integer statusPedido;
+	private Double total; //total frete + produtos
+	private Boolean confirmado; //se o pedido for finalizado pelo será true
 	
 	public Double getPrecoTotal() {
 		return precoTotal;
@@ -23,14 +25,14 @@ public class Pedido extends EntidadeDominio{
 	public void setValorFrete(ValorFrete valorFrete) {
 		this.valorFrete = valorFrete;
 	}
-	public void setStatusPedido(StatusPedido statusPedido) {
+	public void setStatusPedido(Integer statusPedido) {
 		this.statusPedido = statusPedido;
 	}
 	
-	public List<ItensPedido> getItens() {
+	public List<Pedidoi> getItens() {
 		return itens;
 	}
-	public void setItens(List<ItensPedido> itens) {
+	public void setItens(List<Pedidoi> itens) {
 		this.itens = itens;
 	}
 	
@@ -58,11 +60,20 @@ public class Pedido extends EntidadeDominio{
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-	public StatusPedido getStatusPedido() {
+	public Integer getStatusPedido() {
 		return statusPedido;
 	}
-	public void setStatus(StatusPedido statusPedido) {
-		this.statusPedido = statusPedido;
+	public Double getTotal() {
+		return total;
+	}
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	public Boolean getConfirmado() {
+		return confirmado;
+	}
+	public void setConfirmado(Boolean confirmado) {
+		this.confirmado = confirmado;
 	}
 	
 		

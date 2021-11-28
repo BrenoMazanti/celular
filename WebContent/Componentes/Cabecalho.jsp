@@ -1,4 +1,4 @@
-<%@ include file="/CSS/telas.css"%>
+
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +31,7 @@
 
 						<a class="dropdown-item" href="FormCliente.jsp">Meus Dados</a>
 						<a class="dropdown-item" href="trocasenha.jsp">Alterar Senha</a>
-                        <a class="dropdown-item" href="listaendereco.jsp">Meus Endereços</a>
+                        <a class="dropdown-item" href="./Endereco?operacao=CONSULTAR&pagina=listaendereco.jsp">Meus Endereços</a>
                         <a class="dropdown-item" href="./Cartao?operacao=CONSULTAR&pagina=listacartoes.jsp">Meus Cartões</a> 
 						<a class="dropdown-item" href="MeusPedidos.jsp">Meus Pedidos</a>
 						<a class="dropdown-item" href="MinhasTrocas.jsp">Minhas Trocas</a>
@@ -45,7 +45,7 @@
 						<a class="dropdown-item" href="FormCliente.jsp">Cadastrar</a>
 						<a class="dropdown-item" href="telalogin.jsp">Meus Dados</a> 
 						<a class="dropdown-item" href="listaendereco.jsp">Meus Endereços</a> 
-						<a class="dropdown-item" href="#">Meus Cartões</a> 
+						<a class="dropdown-item" href="listacartoes.jsp">Meus Cartões</a> 
 						<a class="dropdown-item" href="MeusPedidos.jsp">Meus Pedidos</a>
 						<a class="dropdown-item" href="MinhasTrocas.jsp">Minhas Trocas</a>
 							
@@ -55,9 +55,18 @@
 					<div class="dropdown-divider"></div>
 				</div>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="Carrinho.jsp"
-				style="color: black"><i style="font-size:40px;" class="fas fa-shopping-cart"></i></a>
-			</li>
+			<%if(request.getSession().getAttribute("cliente") != null) {%>
+				<li class="nav-item"><a class="nav-link" href="./Carrinho?operacao=CONSULTAR&pagina=Carrinhoboot.jsp"
+					style="color: black"><i style="font-size:40px;" class="fas fa-shopping-cart"></i></a>
+				</li>
+			<%}
+			
+			else {%>
+				<li class="nav-item"><a class="nav-link" href="telalogin.jsp"
+					style="color: black"><i style="font-size:40px;" class="fas fa-shopping-cart"></i></a>
+				</li>		
+			<% }%>
+			
 		</ul>
 	</div>
 </nav>

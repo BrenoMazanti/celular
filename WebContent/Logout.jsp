@@ -12,7 +12,7 @@
 	Cliente cliente = (Cliente) session.getAttribute("cliente");
 	if (cliente != null) {
 		session.invalidate();
-		response.sendRedirect("telainicial.jsp");
+		response.sendRedirect("iniciar.jsp");
 	}
 	}
 %>

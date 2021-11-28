@@ -25,6 +25,10 @@ import br.edu.fatec.celular.vh.CartaoVh;
 import br.edu.fatec.celular.vh.ClienteVh;
 import br.edu.fatec.celular.vh.EnderecoVh;
 import br.edu.fatec.celular.vh.CelularVh;
+import br.edu.fatec.celular.vh.CarrinhoVh;
+import br.edu.fatec.celular.vh.CarrinhoiVh;
+import br.edu.fatec.celular.vh.PedidoVh;
+import br.edu.fatec.celular.vh.PedidoiVh;
 
 /**
  * Servlet implementation class Servlet
@@ -33,7 +37,11 @@ import br.edu.fatec.celular.vh.CelularVh;
                          , "/Endereco"
                          , "/Cartao"
                          , "/Administrador"
-                         , "/Celular"})
+                         , "/Celular"
+                         , "/Carrinho"
+                         , "/Carrinhoi"
+                         , "/Pedido"
+                         , "/Pedidoi"})
 public class Servlet extends HttpServlet {	
 	private static final long serialVersionUID = 1L;
 	private Map <String, IViewHelper> mapavh;
@@ -58,6 +66,10 @@ public class Servlet extends HttpServlet {
     	mapavh.put("/celular/Cartao", new CartaoVh());
     	mapavh.put("/celular/Administrador", new AdministradorVh());
     	mapavh.put("/celular/Celular", new CelularVh());
+    	mapavh.put("/celular/Carrinho", new CarrinhoVh());
+    	mapavh.put("/celular/Carrinhoi", new CarrinhoiVh());
+    	mapavh.put("/celular/Pedido", new PedidoVh());
+    	mapavh.put("/celular/Pedidoi", new PedidoiVh());
     	
     }
 

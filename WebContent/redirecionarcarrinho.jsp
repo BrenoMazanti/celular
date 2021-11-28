@@ -8,7 +8,7 @@
 			"<input type = 'hidden' id = 'resultado' value = " + request.getAttribute("resultado") + ">");
 	}
 
-	response.sendRedirect("./Celular?operacao=LISTAR&pagina=telainicial.jsp");	
+	response.sendRedirect("./Carrinho?operacao=CONSULTAR&pagina=Carrinhoboot.jsp");	
 %>
 <script type="text/javascript">
 		$(document).ready(function() {

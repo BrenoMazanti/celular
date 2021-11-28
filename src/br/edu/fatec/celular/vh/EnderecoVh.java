@@ -188,12 +188,8 @@ public class EnderecoVh implements IViewHelper{
 		if (resultado.getMsg() == null) {
 			if (operacao.equals("SALVAR")) {
 				resultado.setMsg("Endereço cadastrado com sucesso!");
+				req.setAttribute("enderecos", resultado.getEntidades());
 				req.setAttribute("resultado", resultado.getMsg());
-				
-				Cliente cli = (Cliente) req.getSession().getAttribute("cliente");
-				cli.getEnderecos().add((Endereco) resultado.getEntidades().get(0));
-				
-				req.getSession().setAttribute("cliente", cli);
 				
 				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
@@ -201,7 +197,7 @@ public class EnderecoVh implements IViewHelper{
 				//System.out.println(resultado.getEntidades());
 				if(!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
 					req.setAttribute("enderecos", resultado.getEntidades());
-					d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+					d = req.getRequestDispatcher(req.getParameter("pagina"));
 				}
 				else {
 					resultado.setMsg("Endereço não encontrado!");

@@ -1,7 +1,7 @@
 package br.edu.fatec.celular.dominio;
 
-public class ItensCarrinho extends EntidadeDominio{
-	private Celular celular;
+public class Carrinhoi extends EntidadeDominio{
+	private Celular celular = new Celular();
 	private Double precoUni;
 	private Integer qtde;
 	private Carrinho carrinho;
