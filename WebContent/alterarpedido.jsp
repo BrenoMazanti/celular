@@ -30,14 +30,14 @@
 	                                <hr class="my-0">
 	                            </div>
 	                            <div class="card-body">
-	                                <div class="row justify-content-between">
-	                                    <div class="col-auto mt-0">
-	                                        <p><b>BBBootstrap Team Vasant Vihar 110020 New Delhi India</b></p>
-	                                    </div>
-	                                    <div class="col-auto">
-	                                        <p><b>BBBootstrap@gmail.com</b> </p>
-	                                    </div>
-	                                </div>
+	                                <div class="card" align="center" style="width: 18rem;">
+										<div class="card-body">
+											<h5 class="card-title"><%out.println(pedido.getEndereco().getLogradouro());%></h5>
+											<p class="card-text"><%out.println(pedido.getEndereco().getLogradouro()); out.println(", "); out.println(pedido.getEndereco().getNumero());%></p>
+											<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
+											href="#" class="btn btn-primary">Excluir</a>
+										</div>
+									</div>
 	                                <div class="row mt-4">
 	                                    <div class="col">
 	                                        <p class="text-muted mb-2">PAYMENT DETAILS</p>

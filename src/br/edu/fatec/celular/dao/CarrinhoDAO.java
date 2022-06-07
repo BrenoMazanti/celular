@@ -77,6 +77,7 @@ public class CarrinhoDAO extends AbstractDAO{
 				
 				for (EntidadeDominio d : carrinhoidao.consultar(carrinhoi)) {
 					if(d != null) {
+						System.out.println(d.getId());
 						carrinhois.add((Carrinhoi) d);
 					}
 				}

@@ -4,6 +4,7 @@ public class Pedidoi extends EntidadeDominio{
 	private Celular celular;
 	private Double precoUni;
 	private Integer qtde;
+	private Double totalItem;
 	private Pedido pedido;
 	
 	public Celular getCelular() {
@@ -15,7 +16,7 @@ public class Pedidoi extends EntidadeDominio{
 	public Double getPrecoUni() {
 		return precoUni;
 	}
-	public void setPreco(Double preco) {
+	public void setPrecoUni(Double preco) {
 		this.precoUni = preco;
 	}
 	public Integer getQtde() {
@@ -31,6 +32,13 @@ public class Pedidoi extends EntidadeDominio{
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	public Double getTotalItem() {
+		return totalItem;
+	}
+	public void setTotalItem(Double totalItem) {
+		this.totalItem = totalItem;
+	}
 
+	
 	
 }

@@ -148,10 +148,11 @@ public class PedidoDAO extends AbstractDAO{
 		//	sql.append("AND id = ?");
 		//}
 		
-		if (pedido.getCliente().getId() != null) {
+		if (pedido.getCliente().getId() != null && pedido.getConfirmado() != null) {
 			sql.append("SELECT * "
 					 + "FROM tb_pedido "
 					 + "WHERE ativo = true "
+					 + "AND confirmado = ?"
 			         + "AND fk_cliente = ?");
 		}
 
@@ -164,18 +165,29 @@ public class PedidoDAO extends AbstractDAO{
 			//}
 			
 			if (pedido.getCliente().getId() != null) {
-				pst.setInt(1, pedido.getCliente().getId());
+				pst.setBoolean(1, pedido.getConfirmado());
+				pst.setInt(2, pedido.getCliente().getId());
 			}
             
 			List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-
+				
+				pedido.setId(rs.getInt("id"));
 				pedido.setDtCadastro(rs.getDate("dt_cadastro"));
 				pedido.setDtAlteracao(rs.getDate("dt_alteracao"));
-				pedido.setId(rs.getInt("fk_cliente"));
 				pedido.getCliente().setId(rs.getInt("fk_cliente"));
-				pedido.setPrecoTotal(rs.getDouble("preco_total"));
+				pedido.setValorFrete(rs.getDouble("vlfrete"));
+				pedido.setTotalItens(rs.getDouble("totalitens"));
+				pedido.setPrecoTotal(rs.getDouble("total"));
+				
+				pedido.getEndereco().setId(rs.getInt("fk_endereco"));
+				pedido.getEndereco().setLogradouro(rs.getString("logradouro"));
+				pedido.getEndereco().setNumero(rs.getString("numero"));
+				pedido.getEndereco().setBairro(rs.getString("bairro"));
+				pedido.getEndereco().setCep(rs.getString("cep"));
+				pedido.getEndereco().setCidade(rs.getString("cidade"));
+				pedido.getEndereco().setUf(rs.getString("uf"));
 				
 				Pedidoi pedidoi = new Pedidoi();
 				PedidoiDAO pedidoidao = new PedidoiDAO();

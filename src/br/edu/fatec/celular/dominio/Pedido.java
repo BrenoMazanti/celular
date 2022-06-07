@@ -6,10 +6,12 @@ public class Pedido extends EntidadeDominio{
 	private List<Pedidoi> itens;
 	private Double precoTotal; // preço dos produtos, para mostrar deve somar o frete
 	private Endereco endereco;
-	private ValorFrete valorFrete;
+	//private ValorFrete valorFrete;
+	private Double valorFrete;
 	private Cliente cliente;
 	private Pagamento pagamento;
 	private Integer statusPedido;
+	private Double totalItens;
 	private Double total; //total frete + produtos
 	private Boolean confirmado; //se o pedido for finalizado pelo será true
 	
@@ -19,10 +21,10 @@ public class Pedido extends EntidadeDominio{
 	public void setPrecoTotal(Double precoTotal) {
 		this.precoTotal = precoTotal;
 	}
-	public ValorFrete getValorFrete() {
+	public Double getValorFrete() {
 		return valorFrete;
 	}
-	public void setValorFrete(ValorFrete valorFrete) {
+	public void setValorFrete(Double valorFrete) {
 		this.valorFrete = valorFrete;
 	}
 	public void setStatusPedido(Integer statusPedido) {
@@ -74,6 +76,12 @@ public class Pedido extends EntidadeDominio{
 	}
 	public void setConfirmado(Boolean confirmado) {
 		this.confirmado = confirmado;
+	}
+	public Double getTotalItens() {
+		return totalItens;
+	}
+	public void setTotalItens(Double totalItens) {
+		this.totalItens = totalItens;
 	}
 	
 		

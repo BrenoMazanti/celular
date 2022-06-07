@@ -118,7 +118,9 @@ public class EnderecoDAO extends AbstractDAO{
 					List<EntidadeDominio> enderecos = new ArrayList<EntidadeDominio>();
 					ResultSet rs = pst.executeQuery();
 					while (rs.next()) {
-
+						
+						endereco = new Endereco();
+						
 						endereco.setDtCadastro(rs.getDate("dt_cadastro"));
 						endereco.setDtAlteracao(rs.getDate("dt_alteracao"));
 						endereco.setId(rs.getInt("id"));

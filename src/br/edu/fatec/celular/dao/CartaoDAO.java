@@ -61,6 +61,8 @@ public class CartaoDAO extends AbstractDAO{
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 
+				cartao = new Cartao();
+				
 				cartao.setDtCadastro(rs.getDate("dt_cadastro"));
 				cartao.setDtAlteracao(rs.getDate("dt_alteracao"));
 				cartao.setId(rs.getInt("id"));

@@ -24,6 +24,12 @@ public class PedidoVh implements IViewHelper{
 		if(operacao != null && operacao.equals("CONSULTAR")) {
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			pedido.setCliente(cliente);
+			
+			if(req.getParameter("confirmado") == "false")
+				pedido.setConfirmado(false);
+			else
+				pedido.setConfirmado(true);
+			
 		}
 		if(operacao != null && operacao.equals("SALVAR")) {
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
@@ -49,18 +55,18 @@ public class PedidoVh implements IViewHelper{
 				resultado.setMsg("Pedido salvo com sucesso!");
 				req.setAttribute("resultado", resultado.getMsg());
 				
-				d = req.getRequestDispatcher("alterarpedido.jsp");
+				d = req.getRequestDispatcher("redirecionarpedido.jsp");
 			}
 			if (operacao.equals("CONSULTAR")) {
 				System.out.println(resultado.getEntidades());
 				if(!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
-					req.setAttribute("carrinho", resultado.getEntidades().get(0));
+					req.setAttribute("pedido", resultado.getEntidades().get(0));
 					d = req.getRequestDispatcher(req.getParameter("pagina"));
 				}
 				else {
-					resultado.setMsg("Carrinho não encontrado!");
+					resultado.setMsg("Pedido não encontrado!");
 					req.setAttribute("resultado", resultado.getMsg());
-					d = req.getRequestDispatcher("telainicial.jsp");
+					d = req.getRequestDispatcher("redirecionarcarrinho.jsp");
 				}
 					
 					
@@ -70,11 +76,11 @@ public class PedidoVh implements IViewHelper{
 			if (operacao.equals("LISTAR")) {
 				System.out.println(resultado.getEntidades());
 				if(!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
-					req.setAttribute("carrinhoes", resultado.getEntidades());
+					req.setAttribute("pedidos", resultado.getEntidades());
 					d = req.getRequestDispatcher(req.getParameter("pagina"));
 				}
 				else {
-					resultado.setMsg("Carrinho não encontrado!");
+					resultado.setMsg("Pedido não encontrado!");
 					req.setAttribute("resultado", resultado.getMsg());
 					d = req.getRequestDispatcher("telainicial.jsp");
 				}
