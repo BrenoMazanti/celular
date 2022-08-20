@@ -583,6 +583,37 @@ CREATE TRIGGER trg_pedidoi_pedido_atualizapreco
     FOR EACH ROW
     EXECUTE FUNCTION public.trg_pedidoi_pedido_atualizapreco();
 
+CREATE OR REPLACE FUNCTION public.trg_pedido_pedido_exclui_pedido_nao_confirmado()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+BEGIN
+	
+	IF tg_op = 'INSERT' THEN
+		
+		DELETE
+		FROM tb_pedido
+		WHERE fk_cliente = new.fk_cliente AND confirmado = false ;
+		
+	END IF;
+	
+	IF tg_op = 'DELETE' THEN
+		RETURN old;
+	ELSE
+		RETURN new;
+	END IF;
+	
+END;
+$BODY$;
+
+CREATE TRIGGER trg_pedido_pedido_exclui_pedido_nao_confirmado
+    BEFORE INSERT
+    ON public.tb_pedido
+    FOR EACH ROW
+    EXECUTE FUNCTION public.trg_pedido_pedido_exclui_pedido_nao_confirmado();
+
 preço de custo e a precificação
 parcelas
 qual preço é qual???

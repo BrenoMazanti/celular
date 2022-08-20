@@ -4,7 +4,7 @@ public class Carrinhoi extends EntidadeDominio{
 	private Celular celular = new Celular();
 	private Double precoUni;
 	private Integer qtde;
-	private Carrinho carrinho;
+	private Carrinho carrinho = new Carrinho();
 	
 	public Carrinho getCarrinho() {
 		return carrinho;

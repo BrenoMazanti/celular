@@ -73,7 +73,7 @@ public class CartaoDAO extends AbstractDAO{
 				cartao.setCodigo(rs.getString("codigo"));
 				cartao.setNomeTitular(rs.getString("nome_titular"));
 				cartao.setCpfTitular(rs.getString("cpf_titular"));
-				cartao.getCliente().setId(rs.getInt("fk_cliente"));
+				//cartao.getCliente().setId(rs.getInt("fk_cliente"));
 				//cartao.getBandeira().setId(rs.getInt("fk_bandeira"));
 				
 				cartoes.add(cartao);

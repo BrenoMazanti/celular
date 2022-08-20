@@ -49,7 +49,7 @@ public class EstoqueDAO extends AbstractDAO{
 					List<EntidadeDominio> ests = new ArrayList<EntidadeDominio>();
 					ResultSet rs = pst.executeQuery();
 					while (rs.next()) {
-						//So mar = new So();
+						est = new Estoque();
 
 						est.setDtCadastro(rs.getDate("dt_cadastro"));
 						est.setDtAlteracao(rs.getDate("dt_alteracao"));
@@ -99,7 +99,7 @@ public class EstoqueDAO extends AbstractDAO{
 			List<EntidadeDominio> ests = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				//est = new Estoque();
+				est = new Estoque();
 
 				est.setDtCadastro(rs.getDate("dt_cadastro"));
 				est.setDtAlteracao(rs.getDate("dt_alteracao"));

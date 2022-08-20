@@ -44,7 +44,7 @@ public class CartaoVh implements IViewHelper {
 				req.setAttribute("resultado", resultado.getMsg());
 				
 				Cliente cli = (Cliente) req.getSession().getAttribute("cliente");
-				cli.getEnderecos().add((Endereco) resultado.getEntidades().get(0));
+				cli.getCartoes().add((Cartao) resultado.getEntidades().get(0));
 				
 				req.getSession().setAttribute("cliente", cli);
 				

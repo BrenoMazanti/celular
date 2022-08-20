@@ -53,14 +53,14 @@ public class MarcaDAO extends AbstractDAO{
 					List<EntidadeDominio> marcas = new ArrayList<EntidadeDominio>();
 					ResultSet rs = pst.executeQuery();
 					while (rs.next()) {
-						//Marca mar = new Marca();
+						Marca mar = new Marca();
 
-						marca.setDtCadastro(rs.getDate("dt_cadastro"));
-						marca.setDtAlteracao(rs.getDate("dt_alteracao"));
-						marca.setId(rs.getInt("id"));
-						marca.setDescricao(rs.getString("descricao"));
+						mar.setDtCadastro(rs.getDate("dt_cadastro"));
+						mar.setDtAlteracao(rs.getDate("dt_alteracao"));
+						mar.setId(rs.getInt("id"));
+						mar.setDescricao(rs.getString("descricao"));
 						
-						marcas.add(marca);
+						marcas.add(mar);
 					}
 					return marcas;
 				}catch(
@@ -103,7 +103,7 @@ public class MarcaDAO extends AbstractDAO{
 			List<EntidadeDominio> marcas = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				//marca = new Marca();
+				marca = new Marca();
 
 				marca.setDtCadastro(rs.getDate("dt_cadastro"));
 				marca.setDtAlteracao(rs.getDate("dt_alteracao"));

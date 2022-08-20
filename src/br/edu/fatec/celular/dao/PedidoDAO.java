@@ -173,6 +173,8 @@ public class PedidoDAO extends AbstractDAO{
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				
+				pedido = new Pedido();
+				
 				pedido.setId(rs.getInt("id"));
 				pedido.setDtCadastro(rs.getDate("dt_cadastro"));
 				pedido.setDtAlteracao(rs.getDate("dt_alteracao"));
@@ -250,6 +252,8 @@ public class PedidoDAO extends AbstractDAO{
 			while (rs.next()) {
 				//Cartao pedido = new Cartao();
 				//CelularVariedade var = new CelularVariedade();
+				
+				pedido = new Pedido();
 				
 				pedido.setDtCadastro(rs.getDate("dt_cadastro"));
 				pedido.setDtAlteracao(rs.getDate("dt_alteracao"));

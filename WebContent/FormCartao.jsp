@@ -19,18 +19,18 @@
 			out.println(request.getAttribute("resultado") + "</div>");
 		}
 	%>
-	<form action="Cartao" method="post">
+	<form action="Cartao" method="post" style = "margin-left: 5%; margin-right: 5%;">
 		
 		<div class="form-group">
 			<label for="txtDescricao">Descrição</label> <input
 				type="text" class="form-control" id="txtDescricao"
-				name="txtDescricao" placeholder="Ex: Meu Cartão">
+				name="txtDescricao" placeholder="Ex: Meu Cartão" required>
 		</div>
 		
 		<div class="form-group">
 			<label for="txtNumeroCartao">Número do Cartão</label> <input
 				type="text" class="form-control" id="txtNumeroCartao"
-				name="txtNumeroCartao" placeholder="0000.0000.0000.0000">
+				name="txtNumeroCartao" placeholder="0000.0000.0000.0000" required>
 		</div>
 
 		<div class="form-group">
@@ -60,13 +60,13 @@
 		<div class="form-group">
 			<label for="txtSeguranca">Código de Segurança</label> <input
 				type="text" class="form-control" id="txtSeguranca"
-				name="txtSeguranca" maxlength = "3">
+				name="txtSeguranca" maxlength = "3" required>
 		</div>
 		
 		<div class="form-group">
 			<label for="txtNomeCartao">Nome Impresso no Cartão</label> <input
 				type="text" class="form-control" id="txtNomeCartao"
-				name="txtNomeCartao" placeholder="">
+				name="txtNomeCartao" placeholder="" required>
 		</div>
 		
 		<div class="form-group" align="center">

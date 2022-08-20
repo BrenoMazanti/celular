@@ -64,6 +64,8 @@ public class CarrinhoDAO extends AbstractDAO{
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 
+				carrinho = new Carrinho();
+				
 				carrinho.setDtCadastro(rs.getDate("dt_cadastro"));
 				carrinho.setDtAlteracao(rs.getDate("dt_alteracao"));
 				carrinho.setId(rs.getInt("fk_cliente"));

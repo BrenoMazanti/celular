@@ -124,10 +124,12 @@ public class PedidoiDAO extends AbstractDAO{
 			List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-
+				
+				pedido = new Pedido();
+				
 				pedido.setDtCadastro(rs.getDate("dt_cadastro"));
 				pedido.setDtAlteracao(rs.getDate("dt_alteracao"));
-				pedido.setId(rs.getInt("fk_cliente"));
+				pedido.setId(rs.getInt("id"));
 				pedido.getCliente().setId(rs.getInt("fk_cliente"));
 				pedido.setPrecoTotal(rs.getDouble("preco_total"));
 				
