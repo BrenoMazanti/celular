@@ -115,20 +115,23 @@ public class Fachada implements IFachada {
 		String nmClasse = entidade.getClass().getName();
 
 		String msg = executarRegras(entidade, "SALVAR");
-
+		List<EntidadeDominio> entidades = new ArrayList<EntidadeDominio>();
 		if (msg == null) {
 			IDAO dao = daos.get(nmClasse);
 			try {
 				dao.salvar(entidade);
-				List<EntidadeDominio> entidades = new ArrayList<EntidadeDominio>();
 				entidades.add(entidade);
 				resultado.setEntidades(entidades);
 			} catch (Exception e) { // era SQLException
 				e.printStackTrace();
+				entidades.add(entidade);
+				resultado.setEntidades(entidades);
 				resultado.setMsg("Não foi possível realizar o registro!");
 
 			}
 		} else {
+			entidades.add(entidade);
+			resultado.setEntidades(entidades);
 			resultado.setMsg(msg);
 		}
 		return resultado;

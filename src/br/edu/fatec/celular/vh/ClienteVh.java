@@ -186,7 +186,7 @@ public class ClienteVh implements IViewHelper {
 		if (resultado.getMsg() == null) {
 			if (operacao.equals("SALVAR")) {
 				resultado.setMsg("Cliente cadastrado com sucesso!");
-				req.setAttribute("resultado", resultado.getMsg());
+				
 				req.getSession().setAttribute("cliente", resultado.getEntidades().get(0));
 				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
@@ -227,6 +227,7 @@ public class ClienteVh implements IViewHelper {
 		else {
 			if (operacao.equals("SALVAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("cliente", resultado.getEntidades().get(0));
 				d = req.getRequestDispatcher("FormCliente.jsp");
 			}
 			if (operacao.equals("ALTERAR")) {
