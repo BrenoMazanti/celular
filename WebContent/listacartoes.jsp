@@ -22,7 +22,7 @@
 			CARTÕES DE <% if (cliente != null) { out.println(cliente.getNome()); }%>
 		</h2></th></tr>
 		<%
-			out.println("<tr><td style='margin: 60px'><div style='margin: 10px'><a href='FormEndereco.jsp' class='btn btn-primary'>Novo+</a></div></td></tr>");
+			out.println("<tr><td style='margin: 60px'><div style='margin: 10px'><a href='FormCartao.jsp' class='btn btn-primary'>Novo+</a></div></td></tr>");
 			if (cliente != null){
 				if (cartoes != null && !cartoes.isEmpty()){
 					int linha = 0;
@@ -34,7 +34,7 @@
 							<div class="card-body">
 								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
 								<p class="card-text"><%out.println(d.getNumero().substring(8));%></p>
-								<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
+								<a href="FormCartao.jsp" class="btn btn-primary">Editar</a> <a
 									href="#" class="btn btn-primary">Excluir</a>
 							</div>
 						</div>

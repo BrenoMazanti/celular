@@ -103,7 +103,7 @@ public class SistemaOperacionalDAO extends AbstractDAO{
 			List<EntidadeDominio> sos = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				//so = new So();
+				so = new SistemaOperacional();
 
 				so.setDtCadastro(rs.getDate("dt_cadastro"));
 				so.setDtAlteracao(rs.getDate("dt_alteracao"));

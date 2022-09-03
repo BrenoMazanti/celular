@@ -118,7 +118,8 @@ public class CarrinhoiDAO extends AbstractDAO{
 			List<EntidadeDominio> carrinhois = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-
+				carrinhoi = new Carrinhoi();
+				
 				carrinhoi.setDtCadastro(rs.getDate("dt_cadastro"));
 				carrinhoi.setDtAlteracao(rs.getDate("dt_alteracao"));
 				carrinhoi.setId(rs.getInt("id"));
@@ -137,9 +138,11 @@ public class CarrinhoiDAO extends AbstractDAO{
 				for (EntidadeDominio d : celulardao.consultar(celular)) {
 					celulares.add((Celular) d);
 				}*/
-				
+				System.out.println(carrinhoi.getCelular().getId());
 				carrinhois.add(carrinhoi);
 			}
+			System.out.println(carrinhois.get(0).getId());
+			System.out.println(carrinhois.get(1).getId());
 			return carrinhois;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -161,7 +164,7 @@ public class CarrinhoiDAO extends AbstractDAO{
 	@Override
 	public List<EntidadeDominio> listar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
-		Cartao carrinho = (Cartao) entidade;
+		Carrinhoi carrinhoi = (Carrinhoi) entidade;
 		PreparedStatement pst = null;
 		StringBuilder sql = new StringBuilder();
 
@@ -187,9 +190,9 @@ public class CarrinhoiDAO extends AbstractDAO{
 				//Cartao carrinho = new Cartao();
 				//CelularVariedade var = new CelularVariedade();
 				
-				carrinho.setDtCadastro(rs.getDate("dt_cadastro"));
-				carrinho.setDtAlteracao(rs.getDate("dt_alteracao"));
-				carrinho.setId(rs.getInt("id"));
+				carrinhoi.setDtCadastro(rs.getDate("dt_cadastro"));
+				carrinhoi.setDtAlteracao(rs.getDate("dt_alteracao"));
+				carrinhoi.setId(rs.getInt("id"));
 				
 				// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
                 
@@ -201,7 +204,7 @@ public class CarrinhoiDAO extends AbstractDAO{
 					e.printStackTrace();
 				}
 				
-				celulares.add(carrinho);
+				celulares.add(carrinhoi);
 			}
 			return celulares;
 		} catch (SQLException e) {
