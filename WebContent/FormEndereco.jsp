@@ -3,8 +3,8 @@
 </head>
 <body>
 	<%@ include file="./Componentes/Cabecalho.jsp"%>
+	<%@ include file="./Componentes/LoginBlock.jsp"%>
 	<%
-		
 	
 		if (request.getAttribute("resultado") != null) {
 			out.println("<div id = 'resultado'>");
@@ -15,55 +15,62 @@
 	
 	<%
 	
-		Endereco endereco = (Endereco) session.getAttribute("endereco");
-		if(endereco != null){ 
+		Endereco endereco = (Endereco) request.getAttribute("endereco");
+		if(endereco != null && endereco.getId() != null){ // endereço existe, será alteração
 	
 	%>
+		<input type="hidden" id="txtId" value=<%=endereco.getId()%>>
 		
 		<div class="form-group">
 			<label for="txtDescricao">Descrição</label> <input type="text"
 				class="form-control" id="txtDescricao" name="txtDescricao"
 				placeholder="Ex: Casa da vó"
-				value=<%=endereco.getLogradouro()%>>
+				value=<%=endereco.getDescricao()%>>
 		</div>
 		
 		<div class="form-group">
 			<label for="txtLogradouro">Logradouro</label> <input type="text"
 				class="form-control" id="txtLogradouro" name="txtLogradouro"
 				placeholder="Ex: Rua 12"
-				required>
+				required
+				value=<%=endereco.getLogradouro()%>>
 		</div>
 
 		<div class="form-group">
 			<label for="txtNumero">Numero</label> <input type="text"
 				class="form-control" id="txtNumero" name="txtNumero"
-				required>
+				required
+				value=<%=endereco.getNumero()%>>
 		</div>
 
 		<div class="form-group">
 			<label for="txtComplemento">Complemento</label> <input type="text"
 				class="form-control" id="txtComplemento" name="txtComplemento"
-				placeholder="Ex: Apartamento 3">
+				placeholder="Ex: Apartamento 3"
+				value=<%=endereco.getComplemento()%>>
 		</div>
 
 		<div class="form-group">
 			<label for="txtCep">CEP</label> <input type="text"
 				class="form-control" id="txtCep" name="txtCep"
 				placeholder="00000-000"
-				required>
+				required
+				value=<%=endereco.getCep()%>>
 		</div>
 
 		<div class="form-group">
 			<label for="txtBairro">Bairro</label> <input type="text"
 				class="form-control" id="txtBairro" name="txtBairro"
-				required>
+				required
+				value=<%=endereco.getBairro()%>>
 		</div>
 
 		<div class="form-group">
 			<label for="txtCidade">Cidade</label> <input type="text"
 				class="form-control" id="txtCidade" name="txtCidade"
 				placeholder="Ex: São Paulo"
-				required>
+				required
+				value=<%=endereco.getCidade()%>>
 		</div>
 
 		<div class="form-group">
@@ -116,26 +123,29 @@
 		
 	<%  }
 		    
-		else{
+		else if(endereco != null && endereco.getId() == null){
 	%>
 		<div class="form-group">
 			<label for="txtDescricao">Descrição</label> <input type="text"
 				class="form-control" id="txtDescricao" name="txtDescricao"
 				placeholder="Ex: Casa da vó"
-				required>
+				required
+				value=<%=endereco.getDescricao()%>>
 		</div>
 		
 		<div class="form-group">
 			<label for="txtLogradouro">Logradouro</label> <input type="text"
 				class="form-control" id="txtLogradouro" name="txtLogradouro"
 				placeholder="Ex: Rua 12"
-				required>
+				required
+				value=<%=endereco.getLogradouro()%>>
 		</div>
 
 		<div class="form-group">
 			<label for="txtNumero">Numero</label> <input type="text"
 				class="form-control" id="txtNumero" name="txtNumero"
-				required>
+				required
+				value=<%=endereco.getLogradouro()%>>
 		</div>
 
 		<div class="form-group">

@@ -240,10 +240,12 @@ public class EnderecoVh implements IViewHelper{
 		else {
 			if(operacao.equals("SALVAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("endereco", resultado.getEntidades().get(0));
 				d = req.getRequestDispatcher("FormEndereco.jsp");
 			}
 			if(operacao.equals("ALTERAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("endereco", resultado.getEntidades().get(0));
 				d = req.getRequestDispatcher("FormEndereco.jsp");
 			}
 		}
