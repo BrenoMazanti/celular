@@ -92,6 +92,9 @@ public class Servlet extends HttpServlet {
 	}
 	
 	public void executar(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		//String teste = req.getRequestURI();
+		//System.out.println(teste);
+		
 		IViewHelper ivh = mapavh.get(req.getRequestURI());
 		EntidadeDominio dominio = ivh.getEntidade(req);
 		String operacao = req.getParameter("operacao");
