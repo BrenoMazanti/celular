@@ -11,7 +11,7 @@ CREATE TABLE tb_adm(
 
 CREATE TABLE IF NOT EXISTS public.tb_cliente
 (
-    id integer NOT NULL DEFAULT nextval('tb_cliente_id_seq'::regclass),
+    id SERIAL NOT NULL DEFAULT,
     dt_cadastro timestamp without time zone,
     dt_alteracao timestamp without time zone,
     email character varying(50) COLLATE pg_catalog."default" NOT NULL,
@@ -481,7 +481,7 @@ BEGIN
 	INSERT INTO tb_estoque(fk_celular
 						  , dt_cadastro
 						  , dt_alteracao
-                                                  , qtde_)
+                          )
 	VALUES(NEW.id
 	      ,NOW()
 	      ,NOW());

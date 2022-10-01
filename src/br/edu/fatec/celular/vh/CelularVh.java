@@ -21,7 +21,8 @@ public class CelularVh implements IViewHelper{
 		
 		
 		if(operacao != null && operacao.equals("CONSULTAR")) {
-
+			Integer id = Integer.valueOf(req.getParameter("codigo"));
+			celular.setId(id);
 		}
 		return celular;
 		
