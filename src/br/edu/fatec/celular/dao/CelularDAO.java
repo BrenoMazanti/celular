@@ -35,24 +35,20 @@ public class CelularDAO extends AbstractDAO{
 				Celular celular = (Celular) entidade;
 				PreparedStatement pst = null;
 				StringBuilder sql = new StringBuilder();
-
-				if (celular.getDescricao() != null && celular.getId() != null) {
-					sql.append("SELECT tb_celular.* "
-							 + "FROM tb_celular "
-							 + "WHERE tb_celular.descricao LIKE '%?%' OR tb_celular.id = ? ;");
-					
-					pst.setString(1, celular.getDescricao());
-					pst.setInt(2, celular.getId());
-				}
+                
+				sql.append("SELECT tb_celular.* "
+						 + "FROM tb_celular "
+						 + "WHERE true ");
 				
-				else if (celular.getId() != null) {
-					sql.append("SELECT tb_celular.* "
-							 + "FROM tb_celular "
-							 + "WHERE tb_celular.id = ? ;");
+				
+				if (celular.getId() != null) {
+					sql.append(" AND id = ? ");
 					
 					pst.setInt(1, celular.getId());
 				}
-
+                
+				sql.append(";");
+				
 				try {
 					
 					openConnection();

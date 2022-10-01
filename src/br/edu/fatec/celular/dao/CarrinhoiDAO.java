@@ -141,8 +141,8 @@ public class CarrinhoiDAO extends AbstractDAO{
 				System.out.println(carrinhoi.getCelular().getId());
 				carrinhois.add(carrinhoi);
 			}
-			System.out.println(carrinhois.get(0).getId());
-			System.out.println(carrinhois.get(1).getId());
+			//System.out.println(carrinhois.get(0).getId());
+			//System.out.println(carrinhois.get(1).getId());
 			return carrinhois;
 		} catch (SQLException e) {
 			e.printStackTrace();
