@@ -42,13 +42,17 @@ public class CelularDAO extends AbstractDAO{
 				
 				
 				if (celular.getId() != null) {
-					sql.append(" AND id = ? ");
-					
-					pst.setInt(1, celular.getId());
+					sql.append(" AND id = " + celular.getId());
+
+				}
+				
+				if (celular.getDescricao() != null) {
+					sql.append(" AND descricao = " + celular.getDescricao());
+
 				}
                 
 				sql.append(";");
-				
+				System.out.println(sql);
 				try {
 					
 					openConnection();
