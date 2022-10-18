@@ -32,7 +32,7 @@
 					<div class="card-body">
 						<h5 class="card-title"><%=d.getDescricao()%></h5>
 						<p class="card-text">R$<%=d.getPreco()%></p>
-						<a href="InfoProduto.jsp" class="btn btn-primary">Informações</a>
+						<a href="./Celular?operacao=CONSULTAR&codigo=<%=d.getId()%>&pagina=InfoProduto.jsp" class="btn btn-primary">Informações</a>
 						<% 
 							Cliente cliente = (Cliente) session.getAttribute("cliente");
 							if (cliente != null) {
