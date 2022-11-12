@@ -1,5 +1,6 @@
 package br.edu.fatec.celular.dao;
 
+import java.io.PrintStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,7 +77,7 @@ public class PedidoDAO extends AbstractDAO{
 					+"		ELSE"  
 					+"			0 "  
 					+"	 END AS vlfrete "
-					+ ", preco_total            AS totalitens"
+					+ ", 0                      AS totalitens"
 					+ ", tb_carrinho.fk_cliente AS fk_cliente"
 					+ ", 1                      AS status_pedido "
 					+ ", tb_endereco.logradouro AS logradouro"  
@@ -106,7 +107,7 @@ public class PedidoDAO extends AbstractDAO{
 			}
 			connection.commit();
 			
-			System.out.println(pedido.getId());
+			//System.out.println(pedido.getId());
 			
 			Pedidoi pedidoi = new Pedidoi();
 			PedidoiDAO pedidoidao = new PedidoiDAO();
@@ -142,20 +143,26 @@ public class PedidoDAO extends AbstractDAO{
 		PreparedStatement pst = null;
 		StringBuilder sql = new StringBuilder();
 
+		sql.append("SELECT * "
+				 + "FROM tb_pedido "
+				 + "WHERE true "
+				 + "AND ativo = true ");
 		
-
-		//if(pedido.getId() != null) {
-		//	sql.append("AND id = ?");
-		//}
-		
-		if (pedido.getCliente().getId() != null && pedido.getConfirmado() != null) {
-			sql.append("SELECT * "
-					 + "FROM tb_pedido "
-					 + "WHERE ativo = true "
-					 + "AND confirmado = ?"
-			         + "AND fk_cliente = ?");
+		if (pedido.getCliente().getId() != null) {
+			sql.append( " AND fk_cliente = " + pedido.getCliente().getId());
 		}
 
+		if (pedido.getConfirmado() != null) {
+			if (pedido.getConfirmado() == false) {
+				sql.append(" AND confirmado = false ");
+			}
+			else {
+				sql.append(" AND confirmado = true ");
+			}
+		}
+
+		sql.append(";");
+		//System.out.println(sql);
 		try {
 			openConnection();
 			pst = connection.prepareStatement(sql.toString());
@@ -164,10 +171,6 @@ public class PedidoDAO extends AbstractDAO{
 			//	pst.setInt(1, pedido.getId());
 			//}
 			
-			if (pedido.getCliente().getId() != null) {
-				pst.setBoolean(1, pedido.getConfirmado());
-				pst.setInt(2, pedido.getCliente().getId());
-			}
             
 			List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();

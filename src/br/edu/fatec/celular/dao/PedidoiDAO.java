@@ -43,7 +43,7 @@ public class PedidoiDAO extends AbstractDAO{
 					+ ", now()                  AS dt_alteracao"
 					+ ", preco_uni              AS preco_uni"  
 					+ ", qtde                   AS qtde"
-					+ ", preco_uni + qtde       AS totalitem "
+					+ ", preco_uni * qtde       AS totalitem "
 					+ ", fk_celular             AS fk_celular "
 					+ ", ?                      AS fk_pedido "
 					+ "FROM tb_carrinhoi "
@@ -92,23 +92,22 @@ public class PedidoiDAO extends AbstractDAO{
 	}
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
-		Pedido pedido = (Pedido) entidade;
+		Pedidoi pedidoi = (Pedidoi) entidade;
 		PreparedStatement pst = null;
 		StringBuilder sql = new StringBuilder();
 
+		sql.append("SELECT tb_pedidoi.* "
+				 + "     , tb_celular.* "
+				 + " FROM tb_pedidoi "
+				 + " JOIN tb_celular ON tb_celular.id = tb_pedidoi.fk_celular "
+				 + " WHERE ativo = true ");
 		
-
-		//if(pedido.getId() != null) {
-		//	sql.append("AND id = ?");
-		//}
-		
-		if (pedido.getCliente().getId() != null) {
-			sql.append("SELECT * "
-					 + "FROM tb_pedido "
-					 + "WHERE ativo = true "
-			         + "AND fk_cliente = ?");
+		if (pedidoi.getPedido().getId() != null) {
+			sql.append(" AND fk_pedido = " + pedidoi.getPedido().getId());
 		}
 
+		sql.append(";");
+		
 		try {
 			openConnection();
 			pst = connection.prepareStatement(sql.toString());
@@ -117,38 +116,28 @@ public class PedidoiDAO extends AbstractDAO{
 			//	pst.setInt(1, pedido.getId());
 			//}
 			
-			if (pedido.getCliente().getId() != null) {
-				pst.setInt(1, pedido.getCliente().getId());
-			}
             
-			List<EntidadeDominio> pedidos = new ArrayList<EntidadeDominio>();
+			List<EntidadeDominio> pedidois = new ArrayList<EntidadeDominio>();
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				
-				pedido = new Pedido();
+				pedidoi = new Pedidoi();
 				
-				pedido.setDtCadastro(rs.getDate("dt_cadastro"));
-				pedido.setDtAlteracao(rs.getDate("dt_alteracao"));
-				pedido.setId(rs.getInt("id"));
-				pedido.getCliente().setId(rs.getInt("fk_cliente"));
-				pedido.setPrecoTotal(rs.getDouble("preco_total"));
+				pedidoi.setDtCadastro(rs.getDate("dt_cadastro"));
+				pedidoi.setDtAlteracao(rs.getDate("dt_alteracao"));
+				pedidoi.setId(rs.getInt("id"));
+				pedidoi.getCelular().setId(rs.getInt("fk_celular"));
+				pedidoi.getPedido().setId(rs.getInt("fk_pedido"));
+				pedidoi.setPrecoUni(rs.getDouble("preco_uni"));
+				pedidoi.setQtde(rs.getInt("qtde"));
+				pedidoi.setTotalItem(rs.getDouble("totalitem"));
+				pedidoi.getCelular().setDescricao(rs.getString("descricao"));
+				pedidoi.getCelular().setFoto(rs.getString("foto"));
 				
-				Pedidoi pedidoi = new Pedidoi();
-				PedidoiDAO pedidoidao = new PedidoiDAO();
-				pedidoi.setPedido(pedido);
-				List<Pedidoi> pedidois = new ArrayList<Pedidoi>();
+				pedidois.add(pedidoi);
 				
-				for (EntidadeDominio d : pedidoidao.consultar(pedidoi)) {
-					if(d != null) {
-						pedidois.add((Pedidoi) d);
-					}
-				}
-				
-				pedido.setItens(pedidois);
-				
-				pedidos.add(pedido);
 			}
-			return pedidos;
+			return pedidois;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
