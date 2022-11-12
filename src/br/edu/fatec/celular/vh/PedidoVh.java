@@ -1,11 +1,14 @@
 package br.edu.fatec.celular.vh;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.TrimSpacesOption;
 
 import br.edu.fatec.celular.dominio.Carrinho;
 import br.edu.fatec.celular.dominio.Pedido;
@@ -25,18 +28,23 @@ public class PedidoVh implements IViewHelper{
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			pedido.setCliente(cliente);
 			
-			if(req.getParameter("confirmado") == "false")
+			if(req.getParameter("confirmado").equals("false")) {
 				pedido.setConfirmado(false);
-			else
+				PrintStream stream
+		        = new PrintStream(System.out);
+				stream.println(pedido.getConfirmado());
+			}
+			else {
 				pedido.setConfirmado(true);
+			}
 			
 		}
 		if(operacao != null && operacao.equals("SALVAR")) {
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			pedido.setCliente(cliente);
 			
-			System.out.println(pedido.getCliente().getId());
-			System.out.println(pedido.getCliente().getNome());
+			//System.out.println(pedido.getCliente().getId());
+			//System.out.println(pedido.getCliente().getNome());
 		}
 		return pedido;
 		
