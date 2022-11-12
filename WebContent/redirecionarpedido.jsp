@@ -8,7 +8,7 @@
 			"<input type = 'hidden' id = 'resultado' value = " + request.getAttribute("resultado") + ">");
 	}
 
-	response.sendRedirect("./Pedido?operacao=CONSULTAR&pagina=alterarpedido.jsp&confirmado=false");	
+	response.sendRedirect("./Pedido?operacao=CONSULTAR&pagina=prepedido.jsp&confirmado=false");	
 %>
 <script type="text/javascript">
 		$(document).ready(function() {
