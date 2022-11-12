@@ -1,11 +1,11 @@
 package br.edu.fatec.celular.dominio;
 
 public class Pedidoi extends EntidadeDominio{
-	private Celular celular;
+	private Celular celular = new Celular();
 	private Double precoUni;
 	private Integer qtde;
 	private Double totalItem;
-	private Pedido pedido;
+	private Pedido pedido = new Pedido();
 	
 	public Celular getCelular() {
 		return celular;

@@ -1,14 +1,15 @@
 package br.edu.fatec.celular.dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido extends EntidadeDominio{
-	private List<Pedidoi> itens;
+	private List<Pedidoi> itens = new ArrayList<Pedidoi>();
 	private Double precoTotal; // preço dos produtos, para mostrar deve somar o frete
-	private Endereco endereco;
+	private Endereco endereco = new Endereco();
 	//private ValorFrete valorFrete;
 	private Double valorFrete;
-	private Cliente cliente;
+	private Cliente cliente = new Cliente();
 	private Pagamento pagamento;
 	private Integer statusPedido;
 	private Double totalItens;
