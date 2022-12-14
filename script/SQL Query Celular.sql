@@ -392,24 +392,28 @@ CREATE TABLE tb_cartao(
 	ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 	
-CREATE TABLE tb_cupom_troca(
+CREATE TABLE tb_cupom(
 	id SERIAL,
 	dt_cadastro TIMESTAMP WITHOUT TIME ZONE,
 	dt_alteracao TIMESTAMP WITHOUT TIME ZONE,
 	ativo BOOLEAN DEFAULT TRUE,
 	codigo VARCHAR(20) NOT NULL,
-	valor DOUBLE NOT NULL,
-	fk_cliente NOT NULL,
-	fk_troca NOT NULL
+	valor NUMERIC(10,2) NOT NULL,
+	fk_cliente INTEGER NOT NULL,
+	fk_troca INTEGER,
 
-	CONSTRAINT pk_cupom PRIMARY KEY (id, codigo),
+    CONSTRAINT pk_cupom PRIMARY KEY (id),
+    CONSTRAINT unq_codigo UNIQUE (codigo),
+
 
 	CONSTRAINT fk_cliente FOREIGN KEY(fk_cliente)
 	REFERENCES tb_cliente (id) MATCH SIMPLE
 	ON UPDATE CASCADE ON DELETE RESTRICT
+    
+    
 );
 
-CREATE TABLE tb_pagamento(
+/*CREATE TABLE tb_pagamento(
 	id SERIAL,
 	dt_cadastro TIMESTAMP WITHOUT TIME ZONE,
 	dt_alteracao TIMESTAMP WITHOUT TIME ZONE,
@@ -424,22 +428,33 @@ CREATE TABLE tb_pagamento(
 	REFERENCES tb_pedido (id) MATCH SIMPLE
 	ON UPDATE CASCADE ON DELETE RESTRICT
 );
+*/
 
-CREATE TABLE tb_pagamentoi(
-	id SERIAL,
+CREATE TABLE tb_pagamento(
+	id SERIAL NOT NULL,
 	dt_cadastro TIMESTAMP WITHOUT TIME ZONE,
 	dt_alteracao TIMESTAMP WITHOUT TIME ZONE,
 	ativo BOOLEAN DEFAULT TRUE,
-	fk_pagamento NOT NULL,
-	tipo INTEGER NOT NULL,
-	forma_pagamento INTEGER NOT NULL, 	--chaves estrangeiras de cartão ou cupom
-	parcelas INTEGER NOT NULL,
+	fk_pedido INTEGER NOT NULL,
+	fk_cartao INTEGER, 	--chaves estrangeiras de cartão ou cupom
+	fk_cupom INTEGER,
+	qtdeparcelas INTEGER NOT NULL DEFAULT 1,
+    vlparcela NUMERIC(12,2) NOT NULL DEFAULT 0,
+    vltotal NUMERIC(12,2) NOT NULL DEFAULT 0,
 
 	CONSTRAINT pk_dados_pagamento PRIMARY KEY (id),
 
-	CONSTRAINT fk_pagamento FOREIGN KEY(fk_pagamento)
-	REFERENCES tb_pagamento (id) MATCH SIMPLE
-	ON UPDATE RESTRICT ON DELETE RESTRICT
+	CONSTRAINT fk_pedido FOREIGN KEY (fk_pedido)
+	REFERENCES tb_pedido (id) MATCH SIMPLE
+	ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    CONSTRAINT fk_cartao FOREIGN KEY(fk_cartao)
+	REFERENCES tb_cartao(id) MATCH SIMPLE
+	ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    CONSTRAINT fk_cupom FOREIGN KEY(fk_cupom)
+	REFERENCES tb_cupom (id) MATCH SIMPLE
+	ON UPDATE CASCADE ON DELETE RESTRICT	
 );
 
 CREATE TABLE IF NOT EXISTS tb_precificacao (

@@ -25,7 +25,15 @@ public class CartaoVh implements IViewHelper {
 		if(operacao != null && operacao.equals("CONSULTAR")) {
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			
-			cartao.setCliente(cliente);
+			if(cliente != null) {
+				cartao.setCliente(cliente);
+			}
+			
+			if(req.getParameter("codigo") != null) {
+				Integer id = Integer.valueOf(req.getParameter("codigo"));
+				System.out.println(id);
+				cartao.setId(id);
+			}
 		}
 		return cartao;
 	}

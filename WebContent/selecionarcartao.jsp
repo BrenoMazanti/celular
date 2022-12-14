@@ -37,15 +37,16 @@
 						<div class="card" align="center" style="width: 18rem;">
 							<div class="card-body">
 								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
-								<p class="card-text"><%out.println(d.getNumero().substring(8));%></p>
+								<p class="card-text">************<%out.println(d.getNumero().substring(12));%></p>
+								<a href="./Cartao?operacao=CONSULTAR&codigo=<%out.println(d.getId());%>&pagina=cartaoparcela.jsp" class="btn btn-primary">Selecionar</a>
 								<a href="FormCartao.jsp" class="btn btn-primary">Editar</a> <a
 									href="#" class="btn btn-primary">Excluir</a>
 							</div>
 						</div>
 					</td>
-				
+
 				<%
-				       linha++;
+				      linha++ ;
 					}
 				}
 			}	
