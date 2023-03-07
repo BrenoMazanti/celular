@@ -11,7 +11,7 @@ CREATE TABLE tb_adm(
 
 CREATE TABLE IF NOT EXISTS public.tb_cliente
 (
-    id SERIAL NOT NULL DEFAULT,
+    id SERIAL NOT NULL,
     dt_cadastro timestamp without time zone,
     dt_alteracao timestamp without time zone,
     email character varying(50) COLLATE pg_catalog."default" NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS public.tb_cliente
     CONSTRAINT pk_cliente PRIMARY KEY (id),
     CONSTRAINT tb_cliente_cpf_key UNIQUE (cpf),
     CONSTRAINT tb_cliente_email_key UNIQUE (email)
-)
+) ;
 
 CREATE TABLE tb_estado(
 	id SERIAL,
@@ -90,7 +90,7 @@ CREATE TABLE tb_endereco(
 
 );
 
-/* EndereÁo completo:
+/* Endere√ßo completo:
 CREATE TABLE tb_endereco(
 	id SERIAL,
 	dt_cadastro TIMESTAMP WITHOUT TIME ZONE,
@@ -165,13 +165,13 @@ CREATE TABLE tb_so(
 
 CREATE TABLE tb_celular(
 	id SERIAL NOT NULL,
-	dt_cadastro TIMESTAMP WITHOUT TIME ZONE now(),
+	dt_cadastro TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
 	dt_alteracao TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
 	descricao VARCHAR(50) NOT NULL,
 	tipo_chip VARCHAR(20) NOT NULL,
 	camera_traseira VARCHAR(20) NOT NULL,
 	camera_frontal VARCHAR(20) NOT NULL,
-	tamanho_tela VARCHAR(20) NOT NULL, 6''
+	tamanho_tela VARCHAR(20) NOT NULL, --6''
 	resolucao VARCHAR(20) NOT NULL, --1280x1080
 	altura VARCHAR(10) NOT NULL,
 	largura VARCHAR(10) NOT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE tb_cartao(
 	nome_titular VARCHAR(50) NOT NULL,
 	cpf_titular VARCHAR(11) NOT NULL,
 	fk_cliente integer NOT NULL,
-	fk_bandeira,
+	--fk_bandeira,
 
 	CONSTRAINT pk_cartao PRIMARY KEY (id),
 
@@ -436,7 +436,7 @@ CREATE TABLE tb_pagamento(
 	dt_alteracao TIMESTAMP WITHOUT TIME ZONE,
 	ativo BOOLEAN DEFAULT TRUE,
 	fk_pedido INTEGER NOT NULL,
-	fk_cartao INTEGER, 	--chaves estrangeiras de cart„o ou cupom
+	fk_cartao INTEGER, 	--chaves estrangeiras de cart√£o ou cupom
 	fk_cupom INTEGER,
 	qtdeparcelas INTEGER NOT NULL DEFAULT 1,
     vlparcela NUMERIC(12,2) NOT NULL DEFAULT 0,
@@ -629,6 +629,6 @@ CREATE TRIGGER trg_pedido_pedido_exclui_pedido_nao_confirmado
     FOR EACH ROW
     EXECUTE FUNCTION public.trg_pedido_pedido_exclui_pedido_nao_confirmado();
 
-preÁo de custo e a precificaÁ„o
+pre√ßo de custo e a precifica√ß√£o
 parcelas
-qual preÁo È qual???
+qual pre√ßo √© qual???
