@@ -14,7 +14,7 @@ import br.edu.fatec.celular.dominio.EntidadeDominio;
 import br.edu.fatec.celular.util.Resultado;
 import br.edu.fatec.celular.dominio.Cliente;
 import br.edu.fatec.celular.vh.IViewHelper;
-import javafx.scene.control.Alert;
+//import javafx.scene.control.Alert;
 
 public class ClienteVh implements IViewHelper {
 

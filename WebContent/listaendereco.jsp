@@ -10,7 +10,7 @@
 	<%@ include file="./Componentes/Cabecalho.jsp"%>
 	<table style="margin: 60px">
 		<%
-			session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
+			//session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
 			session.setAttribute("pagina", "/Endereco?operacao=CONSULTAR&pagina=" + pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
 			Cliente cliente = (Cliente) session.getAttribute("cliente");
 			if (cliente == null) {
