@@ -91,7 +91,7 @@ public class ClienteDAO extends AbstractDAO {
 			sql.append(
 					"UPDATE tb_cliente SET dt_alteracao = ?, senha = ?, cpf = ?, nome = ?, dt_nascimento = ?,"
 							+ "sexo = ?, telefone = ?, celular = ?");
-			sql.append("WHERE id = ?");
+			sql.append(" WHERE id = ? ");
 
 			pst = connection.prepareStatement(sql.toString());
 

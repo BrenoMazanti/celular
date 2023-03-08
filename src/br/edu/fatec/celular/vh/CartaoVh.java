@@ -67,7 +67,7 @@ public class CartaoVh implements IViewHelper {
 				else {
 					resultado.setMsg("Cartão não encontrado!");
 					req.setAttribute("resultado", resultado.getMsg());
-					d = req.getRequestDispatcher("telainicial.jsp");
+					d = req.getRequestDispatcher(req.getParameter("pagina"));
 				}
 					
 					

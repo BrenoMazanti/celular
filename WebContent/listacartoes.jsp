@@ -11,7 +11,8 @@
 	<table style="margin: 60px">
 		<%
 			//session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
-			Cliente cliente = (Cliente) session.getAttribute("cliente");
+		    session.setAttribute("pagina", "/Cartao?operacao=CONSULTAR&pagina=" + pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
+		    Cliente cliente = (Cliente) session.getAttribute("cliente");
 			if (cliente == null) {
 				response.sendRedirect("telalogin.jsp");
 			}
