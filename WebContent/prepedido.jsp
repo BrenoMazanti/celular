@@ -42,8 +42,7 @@
 											<p class="card-text"><%out.println(pedido.getEndereco().getLogradouro()); out.println(", "); out.println(pedido.getEndereco().getNumero());%></p>
 											<p class="card-text"><%out.println(pedido.getEndereco().getBairro());%></p>
 											<p class="card-text"><%out.println(pedido.getEndereco().getCep());%></p>
-											<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
-											href="#" class="btn btn-primary">Excluir</a>
+											<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a>
 										</div>
 									</div>
 	                                <div class="row mt-4">
