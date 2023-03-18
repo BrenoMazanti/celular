@@ -151,8 +151,10 @@ public class EnderecoVh implements IViewHelper{
 		
 		else if(operacao != null && operacao.equals("CONSULTAR")) {
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
-			
+			//Integer id = Integer.valueOf(req.getParameter("codigo"));
 			endereco.setCliente(cliente);
+			//endereco.setId(id);
+			
 		}
 		
 		else

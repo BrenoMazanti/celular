@@ -99,12 +99,14 @@ public class EnderecoDAO extends AbstractDAO{
 				Endereco endereco = (Endereco) entidade;
 				PreparedStatement pst = null;
 				StringBuilder sql = new StringBuilder();
+				
+				sql.append("SELECT * "
+						 + "FROM tb_endereco "
+						 + "WHERE true "
+						 + "AND ativo = true ");
 
 				if (endereco.getCliente().getId() != null) {
-					sql.append("SELECT * "
-							 + "FROM tb_endereco "
-							 + "WHERE fk_cliente = ? AND ativo = true "
-							 + "ORDER BY id;");
+					sql.append(" AND fk_cliente = " + endereco.getCliente().getId());
 				}
 
 				try {

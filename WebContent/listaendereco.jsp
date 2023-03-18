@@ -38,7 +38,7 @@
 							<div class="card-body">
 								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
 								<p class="card-text"><%out.println(d.getLogradouro()); out.println(", "); out.println(d.getNumero());%></p>
-								<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
+								<a href="./Endereco?operacao=CONSULTAR&pagina=FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
 									href="#" class="btn btn-primary">Excluir</a>
 							</div>
 						</div>

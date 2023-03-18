@@ -56,7 +56,7 @@ public class CartaoVh implements IViewHelper {
 				
 				req.getSession().setAttribute("cliente", cli);
 				
-				d = req.getRequestDispatcher("/Cartao?operacao=CONSULTAR");
+				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
 			if (operacao.equals("CONSULTAR")) {
 				//System.out.println(resultado.getEntidades());
