@@ -92,8 +92,162 @@ public class EnderecoDAO extends AbstractDAO{
 	
 	@Override
 	public void alterar(EntidadeDominio entidade) {
-		
+		openConnection();
+		PreparedStatement pst = null;
+		Endereco endereco = (Endereco) entidade;
+
+		try {
+			connection.setAutoCommit(false);
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE tb_endereco SET ");
+	        
+	        List<Object> params = new ArrayList<>(); // lista para armazenar os parâmetros
+	        
+	        if (endereco.getDtAlteracao() != null) {
+	            sql.append("dt_alteracao = ?, ");
+	            params.add(new Timestamp(endereco.getDtAlteracao().getTime()));
+	        }
+	        
+	        if (endereco.getDescricao() != null) {
+	            sql.append("descricao = ?, ");
+	            params.add(endereco.getDescricao());
+	        }
+	        
+	        if (endereco.getLogradouro() != null) {
+	            sql.append("logradouro = ?, ");
+	            params.add(endereco.getLogradouro());
+	        }
+	        
+	        if (endereco.getNumero() != null) {
+	            sql.append("numero = ?, ");
+	            params.add(endereco.getNumero());
+	        }
+	        
+	        if (endereco.getBairro() != null) {
+	            sql.append("bairro = ?, ");
+	            params.add(endereco.getBairro());
+	        }
+	        
+	        if (endereco.getComplemento() != null) {
+	            sql.append("complemento = ?, ");
+	            params.add(endereco.getComplemento());
+	        }
+	        
+	        if (endereco.getCep() != null) {
+	            sql.append("cep = ?, ");
+	            params.add(endereco.getCep());
+	        }
+	        
+	        if (endereco.getCidade() != null) {
+	            sql.append("cidade = ?, ");
+	            params.add(endereco.getCidade());
+	        }
+	        
+	        if (endereco.getUf() != null) {
+	            sql.append("uf = ?, ");
+	            params.add(endereco.getUf());
+	        }
+	        
+	        if (endereco.getPrincipal() != null) {
+	            sql.append("principal = ?, ");
+	            params.add(endereco.getPrincipal());
+	        }
+	        
+	        if (endereco.getCobranca() != null) {
+	            sql.append("cobranca = ?, ");
+	            params.add(endereco.getCobranca());
+	        }
+	        
+	        sql.setLength(sql.length() - 2); // remove a última vírgula e o espaço
+	        
+	        sql.append(" WHERE id = ?");
+	        params.add(endereco.getId());
+	        
+	        pst = connection.prepareStatement(sql.toString());
+	        
+	        for (int i = 0; i < params.size(); i++) {
+	            Object param = params.get(i);
+	            if (param instanceof Timestamp) {
+	                pst.setTimestamp(i + 1, (Timestamp) param);
+	            } else if (param instanceof Boolean) {
+	                pst.setBoolean(i + 1, (Boolean) param);
+	            } else if (param instanceof Integer){
+	                pst.setInt(i + 1, (Integer) param);
+	            } else {
+	                pst.setString(i + 1, (String) param);
+	            }
+	            
+	        }
+			
+			pst.executeUpdate();
+			connection.commit();
+
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
+	
+	/*public List<EntidadeDominio> excluir(EntidadeDominio entidade) throws SQLException {
+		openConnection();
+		PreparedStatement pst = null;
+		Endereco endereco = (Endereco) entidade;
+
+		try {
+			connection.setAutoCommit(false);
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE tb_endereco SET ");
+	        	        
+	        sql.append(" WHERE id = ?");
+	        params.add(endereco.getId());
+	        
+	        pst = connection.prepareStatement(sql.toString());
+	        
+	        for (int i = 0; i < params.size(); i++) {
+	            Object param = params.get(i);
+	            if (param instanceof Timestamp) {
+	                pst.setTimestamp(i + 1, (Timestamp) param);
+	            } else if (param instanceof Boolean) {
+	                pst.setBoolean(i + 1, (Boolean) param);
+	            } else if (param instanceof Integer){
+	                pst.setInt(i + 1, (Integer) param);
+	            } else {
+	                pst.setString(i + 1, (String) param);
+	            }
+	            
+	        }
+			
+			pst.executeUpdate();
+			connection.commit();
+
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}*/
+	
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
 				Endereco endereco = (Endereco) entidade;
@@ -104,6 +258,10 @@ public class EnderecoDAO extends AbstractDAO{
 						 + "FROM tb_endereco "
 						 + "WHERE true "
 						 + "AND ativo = true ");
+				
+				if (endereco.getId() != null) {
+					sql.append(" AND id = " + endereco.getId());
+				}
 
 				if (endereco.getCliente().getId() != null) {
 					sql.append(" AND fk_cliente = " + endereco.getCliente().getId());
@@ -113,9 +271,9 @@ public class EnderecoDAO extends AbstractDAO{
 					openConnection();
 					pst = connection.prepareStatement(sql.toString());
 					
-					if (endereco.getCliente().getId() != null) {
+					/*if (endereco.getCliente().getId() != null) {
 						pst.setInt(1, endereco.getCliente().getId());
-					}
+					}*/
 		            
 					List<EntidadeDominio> enderecos = new ArrayList<EntidadeDominio>();
 					ResultSet rs = pst.executeQuery();

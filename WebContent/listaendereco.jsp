@@ -2,20 +2,16 @@
 <%@ include file="./CSS/telas.css"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="br.edu.fatec.celular.dominio.Cliente"%>
 <%@page import="br.edu.fatec.celular.dominio.Endereco"%>
 <title>Meus Endereços</title>
 </head>
 <body>
 	<%@ include file="./Componentes/Cabecalho.jsp"%>
+	<%@ include file="./Componentes/LoginBlock.jsp"%>
 	<table style="margin: 60px">
 		<%
 			//session.setAttribute("pagina", pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
 			session.setAttribute("pagina", "/Endereco?operacao=CONSULTAR&pagina=" + pageContext.getPage().getClass().getSimpleName().replaceAll("_", "."));
-			Cliente cliente = (Cliente) session.getAttribute("cliente");
-			if (cliente == null) {
-				response.sendRedirect("telalogin.jsp");
-			}
 		%>
 		<tr><th><h2 align="center" margin=10px>
 			ENDEREÇOS DE <% if (cliente != null) { out.println(cliente.getNome()); }%>
@@ -38,8 +34,8 @@
 							<div class="card-body">
 								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
 								<p class="card-text"><%out.println(d.getLogradouro()); out.println(", "); out.println(d.getNumero());%></p>
-								<a href="./Endereco?operacao=CONSULTAR&pagina=FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
-									href="#" class="btn btn-primary">Excluir</a>
+								<a href="./Endereco?operacao=CONSULTAR&codigo=<%=d.getId()%>&pagina=FormEndereco.jsp" class="btn btn-primary">Editar</a> <a
+									href="./Endereco?operacao=EXCLUIR&codigo=<%=d.getId()%>&pagina=FormEndereco.jsp" class="btn btn-primary">Excluir</a>
 							</div>
 						</div>
 					</td>

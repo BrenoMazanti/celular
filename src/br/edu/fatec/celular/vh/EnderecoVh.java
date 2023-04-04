@@ -125,7 +125,7 @@ public class EnderecoVh implements IViewHelper{
 				endereco.setLogradouro(req.getParameter("txtLogradouro").toUpperCase());
 
 			if (req.getParameter("txtNumero") != null && !req.getParameter("txtNumero").equals(""))
-				endereco.setLogradouro(req.getParameter("txtNumero").toUpperCase());
+				endereco.setNumero(req.getParameter("txtNumero").toUpperCase());
 
 			if (req.getParameter("txtComplemento") != null && !req.getParameter("txtComplemento").equals(""))
 				endereco.setComplemento(req.getParameter("txtComplemento").toUpperCase());
@@ -142,6 +142,20 @@ public class EnderecoVh implements IViewHelper{
 			if (req.getParameter("txtCidade") != null && !req.getParameter("txtCidade").equals(""))
 				endereco.setCidade(req.getParameter("txtCidade").toUpperCase());
 			
+			if (req.getParameter("txtId") != null && !req.getParameter("txtId").equals("")) {
+				Integer id = Integer.valueOf(req.getParameter("txtId"));
+				endereco.setId(id);
+			}
+			
+			if (req.getParameter("principal") != null && !req.getParameter("principal").equals("")) {
+				principal = Boolean.parseBoolean(req.getParameter("principal"));
+				endereco.setPrincipal(principal);
+			}
+			
+			if (req.getParameter("cobranca") != null && !req.getParameter("cobranca").equals("")) {
+			    cobranca = Boolean.parseBoolean(req.getParameter("cobranca"));
+			    endereco.setCobranca(cobranca);
+			}
 			
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			
@@ -150,6 +164,11 @@ public class EnderecoVh implements IViewHelper{
 		}
 		
 		else if(operacao != null && operacao.equals("CONSULTAR")) {
+			if(req.getParameter("codigo") != null && !req.getParameter("codigo").equals("")) {
+				Integer id = Integer.valueOf(req.getParameter("codigo"));
+				endereco.setId(id);
+			}
+			
 			cliente = (Cliente) req.getSession().getAttribute("cliente");
 			//Integer id = Integer.valueOf(req.getParameter("codigo"));
 			endereco.setCliente(cliente);
@@ -238,17 +257,27 @@ public class EnderecoVh implements IViewHelper{
 				
 			}
 			
+			if(operacao.equals("EXCLUIR")) {
+				resultado.setMsg("Endereço excluído com sucesso!");
+			    d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+			    req.setAttribute("resultado", resultado.getMsg());
+			}
 		}
 		else {
 			if(operacao.equals("SALVAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
-				req.setAttribute("endereco", resultado.getEntidades().get(0));
+				req.setAttribute("enderecos", resultado.getEntidades());
 				d = req.getRequestDispatcher("FormEndereco.jsp");
 			}
 			if(operacao.equals("ALTERAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
-				req.setAttribute("endereco", resultado.getEntidades().get(0));
+				req.setAttribute("enderecos", resultado.getEntidades());
 				d = req.getRequestDispatcher("FormEndereco.jsp");
+			}
+			if(operacao.equals("EXCLUIR")) {
+				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("enderecos", resultado.getEntidades());
+				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
 		}
 		
