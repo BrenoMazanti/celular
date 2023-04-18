@@ -381,7 +381,7 @@ CREATE TABLE tb_cartao(
 	ano VARCHAR(4) NOT NULL,
 	codigo VARCHAR(3) NOT NULL,
 	nome_titular VARCHAR(50) NOT NULL,
-	cpf_titular VARCHAR(11) NOT NULL,
+	cpf_titular VARCHAR(14) NOT NULL,
 	fk_cliente integer NOT NULL,
 	--fk_bandeira,
 
