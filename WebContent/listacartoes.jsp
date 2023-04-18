@@ -38,7 +38,7 @@
 						<div class="card" align="center" style="width: 18rem;">
 							<div class="card-body">
 								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
-								<p class="card-text"><%out.println(d.getNumero().substring(8));%></p>
+								<p class="card-text"><%out.println("****.****" + d.getNumero().substring(9));%></p>
 								<a href="FormCartao.jsp" class="btn btn-primary">Editar</a> <a
 									href="#" class="btn btn-primary">Excluir</a>
 							</div>
