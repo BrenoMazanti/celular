@@ -199,55 +199,6 @@ public class EnderecoDAO extends AbstractDAO{
 		}
 	}
 	
-	/*public List<EntidadeDominio> excluir(EntidadeDominio entidade) throws SQLException {
-		openConnection();
-		PreparedStatement pst = null;
-		Endereco endereco = (Endereco) entidade;
-
-		try {
-			connection.setAutoCommit(false);
-			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE tb_endereco SET ");
-	        	        
-	        sql.append(" WHERE id = ?");
-	        params.add(endereco.getId());
-	        
-	        pst = connection.prepareStatement(sql.toString());
-	        
-	        for (int i = 0; i < params.size(); i++) {
-	            Object param = params.get(i);
-	            if (param instanceof Timestamp) {
-	                pst.setTimestamp(i + 1, (Timestamp) param);
-	            } else if (param instanceof Boolean) {
-	                pst.setBoolean(i + 1, (Boolean) param);
-	            } else if (param instanceof Integer){
-	                pst.setInt(i + 1, (Integer) param);
-	            } else {
-	                pst.setString(i + 1, (String) param);
-	            }
-	            
-	        }
-			
-			pst.executeUpdate();
-			connection.commit();
-
-		} catch (SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				pst.close();
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}*/
-	
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
 				Endereco endereco = (Endereco) entidade;

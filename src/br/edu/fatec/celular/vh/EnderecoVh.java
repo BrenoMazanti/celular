@@ -176,6 +176,14 @@ public class EnderecoVh implements IViewHelper{
 			
 		}
 		
+		else if(operacao != null && operacao.equals("EXCLUIR")) {
+			if(req.getParameter("codigo") != null && !req.getParameter("codigo").equals("")) {
+				Integer id = Integer.valueOf(req.getParameter("codigo"));
+				endereco.setId(id);
+			}
+			
+		}
+		
 		else
 		{
 			HttpSession session = req.getSession();
@@ -259,7 +267,7 @@ public class EnderecoVh implements IViewHelper{
 			
 			if(operacao.equals("EXCLUIR")) {
 				resultado.setMsg("Endereço excluído com sucesso!");
-			    d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+			    d = req.getRequestDispatcher("redirecionarsessao.jsp");
 			    req.setAttribute("resultado", resultado.getMsg());
 			}
 		}
