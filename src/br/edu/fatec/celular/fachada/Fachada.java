@@ -15,6 +15,7 @@ import br.edu.fatec.celular.dao.CelularDAO;
 import br.edu.fatec.celular.dao.CarrinhoDAO;
 import br.edu.fatec.celular.dao.CarrinhoiDAO;
 import br.edu.fatec.celular.dao.PedidoDAO;
+import br.edu.fatec.celular.dao.PagamentoDAO;
 import br.edu.fatec.celular.dominio.Administrador;
 import br.edu.fatec.celular.dominio.Cartao;
 import br.edu.fatec.celular.dominio.Cliente;
@@ -28,6 +29,7 @@ import br.edu.fatec.celular.strategy.ValidadorClienteSenha;
 import br.edu.fatec.celular.strategy.ValidadorClienteUnico;
 import br.edu.fatec.celular.strategy.ValidadorDadosObrigatoriosCliente;
 import br.edu.fatec.celular.dominio.EntidadeDominio;
+import br.edu.fatec.celular.dominio.Pagamento;
 import br.edu.fatec.celular.util.Resultado;
 
 public class Fachada implements IFachada {
@@ -48,6 +50,8 @@ public class Fachada implements IFachada {
 		CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
 		CarrinhoiDAO carrinhoiDAO = new CarrinhoiDAO();
 		PedidoDAO pedidoDAO = new PedidoDAO();
+		PagamentoDAO pagamentoDAO = new PagamentoDAO();
+
 		daos.put(Cliente.class.getName(), cliDAO);
 		daos.put(Administrador.class.getName(), admDAO);
 		daos.put(Endereco.class.getName(), endDAO);
@@ -56,6 +60,7 @@ public class Fachada implements IFachada {
 		daos.put(Carrinho.class.getName(), carrinhoDAO);
 		daos.put(Carrinhoi.class.getName(), carrinhoiDAO);
 		daos.put(Pedido.class.getName(), pedidoDAO);
+		daos.put(Pagamento.class.getName(), pagamentoDAO);
 
 		// REGRAS DE NEGOCIO Cliente
 		ValidadorDadosObrigatoriosCliente vrDadosObrigatoriosCliente = new ValidadorDadosObrigatoriosCliente();
@@ -80,6 +85,16 @@ public class Fachada implements IFachada {
 		rnsCliente.put("EXCLUIR", rnsExcluirCliente);
 
 		rns.put(Cliente.class.getName(), rnsCliente);
+		
+		//REGRAS DE NEGÓCIO PAGAMENTO
+		//ValidadorValorMinimo validadorValorMinimo = new ValidadorValorMinimo();
+		//validar se ja foi pago o valor total do pedido
+		
+		//Lista de regras de negocio de salvar
+		
+		//Adição de regra de negocio em cada lista
+		//
+
 	}
 
 	private String executarRegras(EntidadeDominio entidade, String operacao) {

@@ -10,7 +10,7 @@ public class Pedido extends EntidadeDominio{
 	//private ValorFrete valorFrete;
 	private Double valorFrete;
 	private Cliente cliente = new Cliente();
-	private Pagamento pagamento;
+	private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
 	private Integer statusPedido;
 	private Double totalItens;
 	private Double total; //total frete + produtos
@@ -57,12 +57,7 @@ public class Pedido extends EntidadeDominio{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
+	
 	public Integer getStatusPedido() {
 		return statusPedido;
 	}
@@ -84,6 +79,12 @@ public class Pedido extends EntidadeDominio{
 	public void setTotalItens(Double totalItens) {
 		this.totalItens = totalItens;
 	}
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
 	
-		
+	
 }

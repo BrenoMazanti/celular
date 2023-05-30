@@ -30,7 +30,12 @@
 		cartoes = (List<Cartao>) request.getAttribute("cartoes");
 		Cartao cartao = cartoes.get(0);
 	%>
-	<form action="Cartao" method="post" style = "margin-left: 5%; margin-right: 5%;">
+	<form action="Pagamento" method="post" style = "margin-left: 5%; margin-right: 5%;">
+		
+		<input
+				type="hidden" class="form-control" id="txtId"
+				name="txtId" placeholder="Ex: Meu Cartão"
+				value=<%=cartao.getId()%>>
 		
 		<div class="form-group">
 			<label for="txtDescricao">Descrição</label> <input
@@ -90,7 +95,7 @@
 				value=<%=cartao.getNomeTitular()%>>
 		</div>
 		
-		<select class="form-control" id="txtParcelas" name="txtAno">
+		<select class="form-control" id="txtParcelas" name="txtParcelas">
 		<%
 			for(int i = 1 ; i <= 12 ; i++){
 		    	
