@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,12 +31,7 @@ public class PagamentoDAO extends AbstractDAO{
 				try {
 					connection.setAutoCommit(false);
 					StringBuilder sql = new StringBuilder();
-					
-					sql.append("INSERT INTO tb_pagamento( ");
-					
-					List<Object> params = new ArrayList<>(); // lista para armazenar os parâmetros
-			        
-					
+
 					sql.append(
 							"INSERT INTO tb_pagamento( dt_cadastro"
                             + ", dt_alteracao"
@@ -45,57 +41,34 @@ public class PagamentoDAO extends AbstractDAO{
                             + ", qtdeparcelas"
                             + ", vlparcela"
                             + ", vltotal)"); 
-					sql.append(" VALUES ("); // boolean ativo default true (ativo e inativo)
+					sql.append(" VALUES (?,?,?,?,?,?,?,?)"); // boolean ativo default true (ativo e inativo)
 					
 					pst = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
-
 					
-					if (pagamento.getDtCadastro() != null) {
-			            sql.append("?, ");
-			            params.add(new Timestamp(pagamento.getDtCadastro().getTime()));
-			        }
+					Timestamp time = new Timestamp(pagamento.getDtCadastro().getTime());
+					pst.setTimestamp(1, time);
+					pst.setTimestamp(2, time);
+					pst.setInt(3, pagamento.getPedido().getId());
 					
-					if (pagamento.getDtAlteracao() != null) {
-			            sql.append("?, ");
-			            params.add(new Timestamp(pagamento.getDtAlteracao().getTime()));
-			        }
-										
-					if (pagamento.getPedido() != null && pagamento.getPedido().getId() != null) {
-					    sql.append("?, ");
-					    params.add(pagamento.getPedido().getId());
+					if(pagamento.getCartao().getId() != null) {
+						pst.setInt(4, pagamento.getCartao().getId());
 					}
-
-					if (pagamento.getCartao() != null && pagamento.getCartao().getId() != null) {
-					    sql.append("?, ");
-					    params.add(pagamento.getCartao().getId());
-					}
-
-					if (pagamento.getCupom() != null && pagamento.getCupom().getId() != null) {
-					    sql.append("?, ");
-					    params.add(pagamento.getCupom().getId());
-					}
-
-
-					if (pagamento.getQtdeParcelas() != null) {
-					    sql.append("?, ");
-					    params.add(pagamento.getQtdeParcelas());
-					}
-
-					if (pagamento.getVlParcela() != null) {
-					    sql.append("?, ");
-					    params.add(pagamento.getVlParcela());
-					}
-
-					if (pagamento.getVlTotal() != null) {
-					    sql.append("?, ");
-					    params.add(pagamento.getVlTotal());
+					else {
+						pst.setNull(4, Types.INTEGER);
 					}
 					
-					sql.setLength(sql.length() - 2); // remove a última vírgula e o espaço
-					System.out.println(params.get(0));
-					sql.append(")");
-					System.out.println(params.size());
-					for (int i = 0; i < params.size(); i++) {
+					if(pagamento.getCupom().getId() != null) {
+						pst.setInt(5, pagamento.getCupom().getId());
+					}
+					else {
+						pst.setNull(5, Types.INTEGER);
+					}
+					
+					pst.setInt(6, pagamento.getQtdeParcelas());
+					pst.setDouble(7, pagamento.getVlParcela());
+					pst.setDouble(8, pagamento.getVlTotal());
+					
+					/*for (int i = 0; i < params.size(); i++) {
 			            Object param = params.get(i);
 			            if (param instanceof Timestamp) {
 			                pst.setTimestamp(i + 1, (Timestamp) param);
@@ -107,7 +80,7 @@ public class PagamentoDAO extends AbstractDAO{
 			                pst.setString(i + 1, (String) param);
 			            }
 			            
-			        }
+			        }*/
 
 					pst.executeUpdate();
 
@@ -248,59 +221,56 @@ public class PagamentoDAO extends AbstractDAO{
 	
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub
-				Endereco endereco = (Endereco) entidade;
+				Pagamento pagamento = (Pagamento) entidade;
 				PreparedStatement pst = null;
 				StringBuilder sql = new StringBuilder();
+
+				sql.append("SELECT tb_pagamento.* "
+						 + "     , tb_cartao.descricao AS cartao_descricao "
+						 + "     , tb_cartao.numero AS cartao_numero"
+						 + " FROM tb_pagamento "
+						 + " LEFT JOIN tb_cartao ON tb_cartao.id = tb_pagamento.fk_cartao"
+						 + " LEFT JOIN tb_cupom ON tb_cupom.id = tb_pagamento.fk_cupom"
+						 + " WHERE tb_pagamento.ativo = true ");
 				
-				sql.append("SELECT * "
-						 + "FROM tb_endereco "
-						 + "WHERE true "
-						 + "AND ativo = true ");
-				
-				if (endereco.getId() != null) {
-					sql.append(" AND id = " + endereco.getId());
+				if (pagamento.getPedido().getId() != null) {
+					sql.append(" AND fk_pedido = " + pagamento.getPedido().getId());
 				}
 
-				if (endereco.getCliente().getId() != null) {
-					sql.append(" AND fk_cliente = " + endereco.getCliente().getId());
-				}
-
+				sql.append(";");
+				
 				try {
 					openConnection();
 					pst = connection.prepareStatement(sql.toString());
 					
-					/*if (endereco.getCliente().getId() != null) {
-						pst.setInt(1, endereco.getCliente().getId());
-					}*/
+					//if(pedido.getId() != null) {
+					//	pst.setInt(1, pedido.getId());
+					//}
+					
 		            
-					List<EntidadeDominio> enderecos = new ArrayList<EntidadeDominio>();
+					List<EntidadeDominio> pagamentos = new ArrayList<EntidadeDominio>();
 					ResultSet rs = pst.executeQuery();
 					while (rs.next()) {
 						
-						endereco = new Endereco();
+						pagamento = new Pagamento();
 						
-						endereco.setDtCadastro(rs.getDate("dt_cadastro"));
-						endereco.setDtAlteracao(rs.getDate("dt_alteracao"));
-						endereco.setId(rs.getInt("id"));
-						endereco.setDescricao(rs.getString("descricao"));
-						endereco.setLogradouro(rs.getString("logradouro"));
-						endereco.setNumero(rs.getString("numero"));
-						endereco.setComplemento(rs.getString("complemento"));
-						endereco.setBairro(rs.getString("bairro"));
-						endereco.setCep(rs.getString("cep"));
-						endereco.setCidade(rs.getString("cidade"));
-						endereco.setUf(rs.getString("uf"));
-						endereco.setPrincipal(rs.getBoolean("principal"));
-						endereco.setCobranca(rs.getBoolean("cobranca"));
-						endereco.getCliente().setId(rs.getInt("fk_cliente"));
-				   
-						//System.out.println(endereco.getId());
-						//System.out.println(endereco.getDescricao());
-						// cli.setAtivo(rs.getBoolean("ativo")); TODO: Necessita ?
+						pagamento.setDtCadastro(rs.getDate("dt_cadastro"));
+						pagamento.setDtAlteracao(rs.getDate("dt_alteracao"));
+						pagamento.setId(rs.getInt("id"));
+						pagamento.getCartao().setId(rs.getInt("fk_cartao"));
+						pagamento.getPedido().setId(rs.getInt("fk_pedido"));
+						pagamento.getCartao().setNumero(rs.getString("cartao_numero"));
+						pagamento.getCartao().setDescricao(rs.getString("cartao_descricao"));
+						//pagamento.setPrecoUni(rs.getDouble("preco_uni"));
+						//pagamento.setQtde(rs.getInt("qtde"));
+						//pagamento.setTotalItem(rs.getDouble("totalitem"));
+						//pagamento.getCelular().setDescricao(rs.getString("descricao"));
+						//pagamento.getCelular().setFoto(rs.getString("foto"));
 						
-						enderecos.add(endereco);
+						pagamentos.add(pagamento);
+						
 					}
-					return enderecos;
+					return pagamentos;
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
