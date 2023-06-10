@@ -15,7 +15,9 @@ import br.edu.fatec.celular.dominio.Pedido;
 import br.edu.fatec.celular.dominio.Pedidoi;
 import br.edu.fatec.celular.dominio.EntidadeDominio;
 import br.edu.fatec.celular.dominio.IDominio;
+import br.edu.fatec.celular.dominio.Pagamento;
 import br.edu.fatec.celular.dao.PedidoiDAO;
+import br.edu.fatec.celular.dao.PagamentoDAO;
 
 public class PedidoDAO extends AbstractDAO{
 	public PedidoDAO() {
@@ -194,6 +196,7 @@ public class PedidoDAO extends AbstractDAO{
 				pedido.getEndereco().setCidade(rs.getString("cidade"));
 				pedido.getEndereco().setUf(rs.getString("uf"));
 				
+				//Itens do Pedido
 				Pedidoi pedidoi = new Pedidoi();
 				PedidoiDAO pedidoidao = new PedidoiDAO();
 				pedidoi.setPedido(pedido);
@@ -206,6 +209,19 @@ public class PedidoDAO extends AbstractDAO{
 				}
 				
 				pedido.setItens(pedidois);
+				
+				//Pagamentos
+				Pagamento pagamento = new Pagamento();
+				PagamentoDAO pagamentodao = new PagamentoDAO();
+				pagamento.setPedido(pedido);
+				List<Pagamento> pagamentos = new ArrayList<Pagamento>();
+				for (EntidadeDominio d : pagamentodao.consultar(pagamento)) {
+					if(d != null) {
+						pagamentos.add((Pagamento) d);
+					}
+				}
+				
+				pedido.setPagamentos(pagamentos);
 				
 				pedidos.add(pedido);
 			}
