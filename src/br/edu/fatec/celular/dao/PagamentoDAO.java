@@ -225,7 +225,15 @@ public class PagamentoDAO extends AbstractDAO{
 				PreparedStatement pst = null;
 				StringBuilder sql = new StringBuilder();
 
-				sql.append("SELECT tb_pagamento.* "
+				sql.append("SELECT tb_pagamento.id AS tb_pagamento_id"
+						 + "     , tb_pagamento.dt_cadastro"
+						 + "     , tb_pagamento.dt_alteracao"
+						 + "     , tb_pagamento.fk_pedido"
+						 + "     , tb_pagamento.fk_cartao "
+						 + "     , tb_pagamento.fk_cupom "
+						 + "     , tb_pagamento.vltotal"
+						 + "     , tb_pagamento.qtdeparcelas"
+						 + "     , tb_pagamento.vlparcela"
 						 + "     , tb_cartao.descricao AS cartao_descricao "
 						 + "     , tb_cartao.numero AS cartao_numero"
 						 + " FROM tb_pagamento "
@@ -256,16 +264,15 @@ public class PagamentoDAO extends AbstractDAO{
 						
 						pagamento.setDtCadastro(rs.getDate("dt_cadastro"));
 						pagamento.setDtAlteracao(rs.getDate("dt_alteracao"));
-						pagamento.setId(rs.getInt("id"));
+						pagamento.setId(rs.getInt("tb_pagamento_id"));
 						pagamento.getCartao().setId(rs.getInt("fk_cartao"));
+						pagamento.getCupom().setId(rs.getInt("fk_cupom"));
 						pagamento.getPedido().setId(rs.getInt("fk_pedido"));
 						pagamento.getCartao().setNumero(rs.getString("cartao_numero"));
 						pagamento.getCartao().setDescricao(rs.getString("cartao_descricao"));
-						//pagamento.setPrecoUni(rs.getDouble("preco_uni"));
-						//pagamento.setQtde(rs.getInt("qtde"));
-						//pagamento.setTotalItem(rs.getDouble("totalitem"));
-						//pagamento.getCelular().setDescricao(rs.getString("descricao"));
-						//pagamento.getCelular().setFoto(rs.getString("foto"));
+						pagamento.setVlTotal(rs.getDouble("vltotal"));
+						pagamento.setQtdeParcelas(rs.getInt("qtdeparcelas"));
+						pagamento.setVlParcela(rs.getDouble("vlparcela"));
 						
 						pagamentos.add(pagamento);
 						
