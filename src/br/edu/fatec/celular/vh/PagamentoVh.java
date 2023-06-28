@@ -54,7 +54,7 @@ public class PagamentoVh implements IViewHelper{
 				req.setAttribute("pagamentos", resultado.getEntidades());
 				req.setAttribute("resultado", resultado.getMsg());
 				
-				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
+				d = req.getRequestDispatcher("redirecionarpedido.jsp");
 			}
 			if (operacao.equals("CONSULTAR")) {
 				//System.out.println(resultado.getEntidades());
@@ -88,7 +88,7 @@ public class PagamentoVh implements IViewHelper{
 			
 			if(operacao.equals("EXCLUIR")) {
 				resultado.setMsg("Pagamento excluído com sucesso!");
-			    d = req.getRequestDispatcher("redirecionarsessao.jsp");
+			    d = req.getRequestDispatcher("redirecionarpedido.jsp");
 			    req.setAttribute("resultado", resultado.getMsg());
 			}
 		}

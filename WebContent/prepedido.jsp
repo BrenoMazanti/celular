@@ -2,6 +2,7 @@
 <%@page import="br.edu.fatec.celular.dominio.Cliente"%>
 <%@page import="br.edu.fatec.celular.dominio.Pedido"%>
 <%@page import="br.edu.fatec.celular.dominio.Pedidoi"%>
+<%@page import="br.edu.fatec.celular.dominio.Pagamento"%>
 <%@page import="br.edu.fatec.celular.util.Resultado"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -51,6 +52,20 @@
 	                                        <hr class="mt-0">
 	                                    </div>
 	                                </div>
+	                                
+	                                <% for (Pagamento d : pedido.getPagamentos()) {%>
+	                                
+		                                <div class="card" align="center" style="width: 18rem;">
+											<div class="card-body">
+												<h5 class="card-title"><%out.println(d.getCartao().getDescricao());%></h5>
+												<p class="card-text"><%out.println(d.getVlTotal());%></p>
+												<p class="card-text"><%out.println(d.getQtdeParcelas());out.println("x de ");out.println(d.getVlParcela());%></p>
+												<a href="FormEndereco.jsp" class="btn btn-primary">Editar</a>
+												<a href="./Pagamento?operacao=EXCLUIR&codigo=<%=d.getId()%>" class="btn btn-primary">Excluir</a>
+											</div>
+										</div>
+									<%} %>
+	                                
 	                                <div class="col-md-7 col-lg-6 mx-auto"><a href="./Cartao?operacao=CONSULTAR&pagina=selecionarcartao.jsp"><button type="button" class="btn btn-block btn-outline-primary btn-lg">ADICIONAR CARTÃO</button></a></div>
 	                                <div class="row mb-md-5">
 	                                    <div class="col-md-7 col-lg-6 mx-auto"><button type="button" class="btn btn-block btn-outline-primary btn-lg">ADICIONAR CUPOM</button></div>

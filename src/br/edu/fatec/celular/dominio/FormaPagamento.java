@@ -3,7 +3,7 @@ package br.edu.fatec.celular.dominio;
 import br.edu.fatec.celular.enun.TipoPagamento;
 
 public abstract class FormaPagamento extends EntidadeDominio {
-	private Cliente cliente;
+	private Cliente cliente = new Cliente();
 	private TipoPagamento tipo;
 
 	public Cliente getCliente() {
