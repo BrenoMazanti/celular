@@ -383,4 +383,50 @@ public class PagamentoDAO extends AbstractDAO{
 		// termino equivocado
 		return null;
 	}
+	public void excluir(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
+		openConnection();
+		PreparedStatement pst = null;
+		Pagamento pagamento = (Pagamento) entidade;
+
+		try {
+			connection.setAutoCommit(false);
+			StringBuilder sql = new StringBuilder();
+
+			sql.append(
+					"DELETE FROM tb_pagamento"); 
+			sql.append(" WHERE id = ?"); // boolean ativo default true (ativo e inativo)
+			
+			pst = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			
+			pst.setInt(1, pagamento.getId());
+
+			pst.executeUpdate();
+
+			ResultSet rs = pst.getGeneratedKeys();
+			int id = 0;
+			if (rs.next())
+			{
+				id = rs.getInt(1);
+				pagamento.setId(id);
+			}
+			connection.commit();
+
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }

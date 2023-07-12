@@ -24,20 +24,29 @@ public class PagamentoVh implements IViewHelper{
 	@Override
 	public EntidadeDominio getEntidade(HttpServletRequest req) {
 		// TODO Auto-generated method stub
+		String operacao = req.getParameter("operacao");
+		
 		Calendar calendar;
 		calendar = Calendar.getInstance();
-		
 		Pagamento pagamento = new Pagamento();
-		pagamento.setDtCadastro(calendar.getTime());
-		pagamento.setDtAlteracao(calendar.getTime());
-		pagamento.getPedido().setId(Integer.valueOf((Integer) req.getSession().getAttribute("pedidoid")));
-        
-        // Obtém os valores dos parâmetros da requisição
-		pagamento.getCartao().setId(req.getParameter("txtId") != null && !req.getParameter("txtId").equals("") ? Integer.parseInt(req.getParameter("txtId")) : null);
-		pagamento.setQtdeParcelas(req.getParameter("txtParcelas") != null && !req.getParameter("txtParcelas").equals("") ? Integer.parseInt(req.getParameter("txtParcelas")) : null);
-        pagamento.setVlTotal(req.getParameter("txtValorTotal") != null && !req.getParameter("txtValorTotal").equals("") ? Double.parseDouble(req.getParameter("txtValorTotal")) : null);
-		pagamento.setVlParcela( pagamento.getVlTotal() / pagamento.getQtdeParcelas());
-        return pagamento;
+
+		if (operacao.equals("SALVAR")) {
+			pagamento.setDtCadastro(calendar.getTime());
+			pagamento.setDtAlteracao(calendar.getTime());
+			pagamento.getPedido().setId(Integer.valueOf((Integer) req.getSession().getAttribute("pedidoid")));
+	        
+	        // Obtém os valores dos parâmetros da requisição
+			pagamento.getCartao().setId(req.getParameter("txtId") != null && !req.getParameter("txtId").equals("") ? Integer.parseInt(req.getParameter("txtId")) : null);
+			pagamento.setQtdeParcelas(req.getParameter("txtParcelas") != null && !req.getParameter("txtParcelas").equals("") ? Integer.parseInt(req.getParameter("txtParcelas")) : null);
+	        pagamento.setVlTotal(req.getParameter("txtValorTotal") != null && !req.getParameter("txtValorTotal").equals("") ? Double.parseDouble(req.getParameter("txtValorTotal")) : null);
+			pagamento.setVlParcela( pagamento.getVlTotal() / pagamento.getQtdeParcelas());
+		}
+		
+		if (operacao.equals("EXCLUIR")) {
+			pagamento.setId(req.getParameter("codigo") != null && !req.getParameter("codigo").equals("") ? Integer.parseInt(req.getParameter("codigo")) : null);
+
+		}
+		return pagamento;
 	}
 
 	@Override
