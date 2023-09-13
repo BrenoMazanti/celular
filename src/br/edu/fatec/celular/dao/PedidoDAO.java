@@ -137,7 +137,58 @@ public class PedidoDAO extends AbstractDAO{
 	
 	@Override
 	public void alterar(EntidadeDominio entidade) {
-		
+		// TODO Auto-generated method stub
+		Pedido pedido = (Pedido) entidade;
+		PreparedStatement pst = null;
+		openConnection();
+
+		try {
+			connection.setAutoCommit(false);
+			StringBuilder sql = new StringBuilder();
+			sql.append(
+					"UPDATE tb_pedido SET ");
+			// Verifique se o campo booleano foi preenchido e inclua-o na atualização, se necessário.
+		    if (pedido.getConfirmado() != null) {
+		        sql.append("confirmado = ?, ");
+		    }
+		    
+			sql.setLength(sql.length() - 2);
+
+			sql.append(" WHERE id = ? ");
+
+			pst = connection.prepareStatement(sql.toString());
+
+			int parameterIndex = 1;
+
+		    // Defina os valores dos campos a serem atualizados, na ordem correta.
+		    if (pedido.getConfirmado() != null) {
+		        pst.setBoolean(parameterIndex++, pedido.getConfirmado());
+		    }
+		    // Continue definindo outros valores dos campos conforme necessário.
+
+		    pst.setInt(parameterIndex, pedido.getId());
+			
+			//Não será cadastrado email e CPF
+			//pst.setString(3, cliente.getEmail());
+			//pst.setString(3, cliente.getEmail());
+
+			pst.executeUpdate();
+			connection.commit();
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) throws SQLException {
 		// TODO Auto-generated method stub

@@ -40,7 +40,7 @@
 								<h5 class="card-title"><%out.println(d.getDescricao());%></h5>
 								<p class="card-text"><%out.println("****.****" + d.getNumero().substring(9));%></p>
 								<a href="FormCartao.jsp" class="btn btn-primary">Editar</a> <a
-									href="#" class="btn btn-primary">Excluir</a>
+									href="./Cartao?operacao=EXCLUIR&codigo=<%=d.getId()%>" class="btn btn-primary">Excluir</a>
 							</div>
 						</div>
 					</td>

@@ -429,4 +429,40 @@ public class PagamentoDAO extends AbstractDAO{
 		}
 		
 	}
+	
+	public List<EntidadeDominio> validar(String sql){
+		// TODO Auto-generated method stub
+				PreparedStatement pst = null;
+				Pagamento pagamento = new Pagamento();
+
+				try {
+					openConnection();
+					pst = connection.prepareStatement(sql.toString());
+
+					List<EntidadeDominio> pagamentos = new ArrayList<EntidadeDominio>();
+					ResultSet rs = pst.executeQuery();
+					while (rs.next()) {
+						
+						pagamento = new Pagamento();
+						pagamento.setVlTotal(rs.getDouble("Soma"));;
+						
+						pagamentos.add(pagamento);
+					}
+					return pagamentos;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+
+					try {
+						pst.close();
+						if (ctrlTransaction)
+							connection.close();
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				// termino equivocado
+				return null;
+	}
 }

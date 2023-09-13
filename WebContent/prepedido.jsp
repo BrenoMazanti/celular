@@ -152,7 +152,7 @@
 	                                </div>
 	                                 -->
 	                                <div class="row mb-5 mt-4 ">
-	                                    <div class="col"> <button type="button" name="" id="" class="btn btn-lg btn-block ">FINALIZAR PEDIDO</button> </div>
+	                                    <div class="col"> <a href="finalizarPedido.jsp"><button type="button" name="" id="" class="btn btn-lg btn-block ">FINALIZAR PEDIDO</button> </div>
 	                                </div>
 	                            </div>
 	                        </div>

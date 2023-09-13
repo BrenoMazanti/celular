@@ -38,14 +38,12 @@
 			<label for="txtLogradouro">Logradouro</label> <input type="text"
 				class="form-control" id="txtLogradouro" name="txtLogradouro"
 				placeholder="Ex: Rua 12"
-				required
 				value="<%=endereco.getLogradouro()%>">
 		</div>
 
 		<div class="form-group">
 			<label for="txtNumero">Numero</label> <input type="text"
 				class="form-control" id="txtNumero" name="txtNumero"
-				required
 				value="<%=endereco.getNumero()%>">
 		</div>
 
@@ -60,14 +58,12 @@
 			<label for="txtCep">CEP</label> <input type="text"
 				class="form-control" id="txtCep" name="txtCep"
 				placeholder="00000-000"
-				required
 				value="<%=endereco.getCep()%>">
 		</div>
 
 		<div class="form-group">
 			<label for="txtBairro">Bairro</label> <input type="text"
 				class="form-control" id="txtBairro" name="txtBairro"
-				required
 				value="<%=endereco.getBairro()%>">
 		</div>
 
@@ -75,12 +71,11 @@
 			<label for="txtCidade">Cidade</label> <input type="text"
 				class="form-control" id="txtCidade" name="txtCidade"
 				placeholder="Ex: São Paulo"
-				required
 				value="<%=endereco.getCidade()%>">
 		</div>
 
 		<div class="form-group">
-			<label for="txtEstado">Estado</label> <select class = "input-field col s28" id = "txtEstado" name = "txtEstado" required>
+			<label for="txtEstado">Estado</label> <select class = "input-field col s28" id = "txtEstado" name = "txtEstado">
 				<option value="" <%if (endereco.getUf().equals("")) { out.print("selected"); }%>>Selecione</option>
 				<option value="AC"  <%if (endereco.getUf().equals("AC")) { out.print("selected"); }%>>Acre</option>
 				<option value="AL" <%if (endereco.getUf().equals("AL")) { out.print("selected"); }%>>Alagoas</option>

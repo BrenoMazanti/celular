@@ -46,6 +46,12 @@ public class PedidoVh implements IViewHelper{
 			//System.out.println(pedido.getCliente().getId());
 			//System.out.println(pedido.getCliente().getNome());
 		}
+		
+		if(operacao != null && operacao.equals("ALTERAR")) {
+			
+			//System.out.println(pedido.getCliente().getId());
+			//System.out.println(pedido.getCliente().getNome());
+		}
 		return pedido;
 		
 	}

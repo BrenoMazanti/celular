@@ -1,6 +1,8 @@
 package br.edu.fatec.celular.vh;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +37,81 @@ public class CartaoVh implements IViewHelper {
 				cartao.setId(id);
 			}
 		}
+		
+		if(operacao != null && operacao.equals("SALVAR")) {
+			Calendar calendar = Calendar.getInstance();
+			Date dtCadastro = calendar.getTime();
+
+			String descricao = req.getParameter("txtDescricao");
+			String numero = req.getParameter("txtNumeroCartao");
+			String mes = req.getParameter("txtMes");
+			String ano = req.getParameter("txtAno");
+			String codigo =  req.getParameter("txtCodigo");
+			String nomeTitular = req.getParameter("txtNomeTitular");
+			String cpfTitular = req.getParameter("txtCpfTitular");
+
+			cliente = (Cliente) req.getSession().getAttribute("cliente");
+
+			cartao.setDtCadastro(dtCadastro);
+
+			if (descricao != null && !descricao.isEmpty()) {
+			    cartao.setDescricao(descricao.toUpperCase());
+			} else {
+			    cartao.setDescricao("");
+			}
+
+			// Check and set the numero
+			if (numero != null && !numero.isEmpty()) {
+			    cartao.setNumero(numero.toUpperCase());
+			} else {
+			    cartao.setNumero("");
+			}
+
+			// Check and set the mes
+			if (mes != null && !mes.isEmpty()) {
+			    cartao.setMes(mes);
+			} else {
+			    cartao.setMes("");
+			}
+
+			// Check and set the ano
+			if (ano != null && !ano.isEmpty()) {
+			    cartao.setAno(ano);
+			} else {
+			    cartao.setAno("");
+			}
+
+			// Check and set the nomeTitular
+			if (nomeTitular != null && !nomeTitular.isEmpty()) {
+			    cartao.setNomeTitular(nomeTitular);
+			} else {
+			    cartao.setNomeTitular("");
+			}
+
+			// Check and set the cpfTitular
+			if (cpfTitular != null && !cpfTitular.isEmpty()) {
+			    cartao.setCpfTitular(cpfTitular);
+			} else {
+			    cartao.setCpfTitular("");
+			}
+			
+			if (codigo != null && !codigo.isEmpty()) {
+			    cartao.setCodigo(codigo);
+			} else {
+			    cartao.setCodigo("");
+			}
+
+			cartao.setCliente(cliente);
+		}
+		
+		else if(operacao != null && operacao.equals("EXCLUIR")) {
+			if(req.getParameter("codigo") != null && !req.getParameter("codigo").equals("")) {
+				Integer id = Integer.valueOf(req.getParameter("codigo"));
+				cartao.setId(id);
+			}
+			
+		}
+		
 		return cartao;
 	}
 
@@ -74,6 +151,12 @@ public class CartaoVh implements IViewHelper {
 				
 			}
 			
+			if(operacao.equals("EXCLUIR")) {
+				resultado.setMsg("Cartão excluído com sucesso!");
+			    d = req.getRequestDispatcher("redirecionarsessao.jsp");
+			    req.setAttribute("resultado", resultado.getMsg());
+			}
+			
 			if (operacao.equals("ALTERAR")) {
 				//System.out.println(resultado.getEntidades());
 				if(!resultado.getEntidades().isEmpty() && resultado.getEntidades().get(0) != null) {
@@ -105,11 +188,18 @@ public class CartaoVh implements IViewHelper {
 		else {
 			if(operacao.equals("SALVAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("cartoes", resultado.getEntidades());
 				d = req.getRequestDispatcher("FormCartao.jsp");
 			}
 			if(operacao.equals("ALTERAR")) {
 				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("cartoes", resultado.getEntidades());
 				d = req.getRequestDispatcher("FormCartao.jsp");
+			}
+			if(operacao.equals("EXCLUIR")) {
+				req.setAttribute("resultado", resultado.getMsg());
+				req.setAttribute("cartoes", resultado.getEntidades());
+				d = req.getRequestDispatcher((String) req.getSession().getAttribute("pagina"));
 			}
 		}
 		

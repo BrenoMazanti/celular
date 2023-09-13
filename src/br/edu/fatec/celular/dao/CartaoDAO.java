@@ -3,6 +3,8 @@ package br.edu.fatec.celular.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,67 @@ public class CartaoDAO extends AbstractDAO{
 	
 	@Override
 	public void salvar(EntidadeDominio entidade) {
-		
+		openConnection();
+		PreparedStatement pst = null;
+		Cartao cartao = (Cartao) entidade;
+
+        try {
+            connection.setAutoCommit(false);
+            StringBuilder sql = new StringBuilder();
+            sql.append("INSERT INTO tb_cartao(")
+            .append("dt_cadastro,")
+            .append("dt_alteracao,")
+            .append("descricao,")
+            .append("numero,")
+            .append("mes,")
+            .append("ano,")
+            .append("codigo,")
+            .append("nome_titular,")
+            .append("cpf_titular,")
+            .append("fk_cliente)")
+            .append(" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            pst = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+
+            Timestamp time = new Timestamp(cartao.getDtCadastro().getTime());
+            pst.setTimestamp(1, time);
+            pst.setTimestamp(2, time);
+            pst.setString(3, cartao.getDescricao());
+            pst.setString(4, cartao.getNumero());
+            pst.setString(5, cartao.getMes());
+            pst.setString(6, cartao.getAno());
+            pst.setString(7, cartao.getCodigo());
+            pst.setString(8, cartao.getNomeTitular());
+            pst.setString(9, cartao.getCpfTitular());
+            pst.setInt(10, cartao.getCliente().getId());
+
+            pst.executeUpdate();
+
+            ResultSet rs = pst.getGeneratedKeys();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+                cartao.setId(id);
+            }
+            connection.commit();
+
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 	
 	@Override
