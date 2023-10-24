@@ -2,6 +2,8 @@ package br.edu.fatec.celular.vh;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,8 +51,38 @@ public class PedidoVh implements IViewHelper{
 		
 		if(operacao != null && operacao.equals("ALTERAR")) {
 			
-			//System.out.println(pedido.getCliente().getId());
-			//System.out.println(pedido.getCliente().getNome());
+			Calendar calendar = Calendar.getInstance();
+			Date dt = calendar.getTime();
+
+			//Pega parâmetros
+			//String descricao = req.getParameter("txtDescricao");
+			
+			if(req.getParameter("codigo") != null && !req.getParameter("codigo").equals("")) {
+				Integer id = Integer.valueOf(req.getParameter("codigo"));
+				pedido.setId(id);
+			}
+			
+			if(req.getParameter("confirmado").equals("false")) {
+				pedido.setConfirmado(false);
+				PrintStream stream
+		        = new PrintStream(System.out);
+				stream.println(pedido.getConfirmado());
+			}
+			else {
+				pedido.setConfirmado(true);
+			}
+
+			cliente = (Cliente) req.getSession().getAttribute("cliente");
+
+			pedido.setDtAlteracao(dt);
+
+			/*if (descricao != null && !descricao.isEmpty()) {
+			    pedido.setDescricao(descricao.toUpperCase());
+			} else {
+			    pedido.setDescricao("");
+			}*/
+
+			pedido.setCliente(cliente);
 		}
 		return pedido;
 		

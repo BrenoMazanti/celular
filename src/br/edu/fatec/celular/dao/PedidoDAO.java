@@ -147,30 +147,37 @@ public class PedidoDAO extends AbstractDAO{
 			StringBuilder sql = new StringBuilder();
 			sql.append(
 					"UPDATE tb_pedido SET ");
-			// Verifique se o campo booleano foi preenchido e inclua-o na atualização, se necessário.
-		    if (pedido.getConfirmado() != null) {
-		        sql.append("confirmado = ?, ");
-		    }
-		    
+			
+			List<Object> params = new ArrayList<>(); // lista para armazenar os parâmetros
+	        
+			// Verifica se foi preenchido
+	        if (pedido.getConfirmado() != null) {
+	            sql.append("confirmado = ?, ");
+	            params.add(pedido.getConfirmado());
+	        }
+   
 			sql.setLength(sql.length() - 2);
 
 			sql.append(" WHERE id = ? ");
+			params.add(pedido.getId());
 
 			pst = connection.prepareStatement(sql.toString());
 
-			int parameterIndex = 1;
-
 		    // Defina os valores dos campos a serem atualizados, na ordem correta.
-		    if (pedido.getConfirmado() != null) {
-		        pst.setBoolean(parameterIndex++, pedido.getConfirmado());
-		    }
-		    // Continue definindo outros valores dos campos conforme necessário.
 
-		    pst.setInt(parameterIndex, pedido.getId());
-			
-			//Não será cadastrado email e CPF
-			//pst.setString(3, cliente.getEmail());
-			//pst.setString(3, cliente.getEmail());
+		    for (int i = 0; i < params.size(); i++) {
+	            Object param = params.get(i);
+	            if (param instanceof Timestamp) {
+	                pst.setTimestamp(i + 1, (Timestamp) param);
+	            } else if (param instanceof Boolean) {
+	                pst.setBoolean(i + 1, (Boolean) param);
+	            } else if (param instanceof Integer){
+	                pst.setInt(i + 1, (Integer) param);
+	            } else {
+	                pst.setString(i + 1, (String) param);
+	            }
+	            
+	        }
 
 			pst.executeUpdate();
 			connection.commit();
