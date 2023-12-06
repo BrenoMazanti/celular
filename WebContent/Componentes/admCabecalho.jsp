@@ -16,7 +16,8 @@
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="./Cliente?operacao=LISTAR">Clientes</a></li>
 				<li><a href="./Celular?operacao=LISTAR">Produtos</a></li>
-				<li><a href="admPedidos.jsp">Pedidos</a></li>
+				<!-- <li><a href="admPedidos.jsp">Pedidos</a></li>-->
+				<li><a href="./Pedido?operacao=CONSULTAR&confirmado=true&pagina=admPedidos.jsp">Pedidos</a>
 				<li><a href="admTrocas.jsp">Trocas</a></li>
 				<li><a href="admAnalise.jsp">Análise</a></li>
 

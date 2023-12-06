@@ -208,7 +208,7 @@ public class PedidoDAO extends AbstractDAO{
 				 + "WHERE true "
 				 + "AND ativo = true ");
 		
-		if (pedido.getCliente().getId() != null) {
+		if (pedido.getCliente() != null && pedido.getCliente().getId() != null) {
 			sql.append( " AND fk_cliente = " + pedido.getCliente().getId());
 		}
 

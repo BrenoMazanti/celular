@@ -1,4 +1,11 @@
 <%@ include file="Componentes/EstruturaInicio.jsp"%>
+<%@page import="br.edu.fatec.celular.util.Resultado"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.edu.fatec.celular.dominio.Cliente"%>
+<%@page import="br.edu.fatec.celular.dominio.Pedido"%>
+<%@page import="br.edu.fatec.celular.dominio.Pedidoi"%>
+<%@page import="br.edu.fatec.celular.dominio.Pagamento"%>
 </head>
 <body>
 	<%@ include file="Componentes/admCabecalho.jsp"%>
@@ -16,27 +23,29 @@
 			</tr>
 		</thead>
 		<%
-			for (int i = 0; i < 10; i++) {
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			pedidos = (List<Pedido>) request.getAttribute("pedidos");
+			for (Pedido i : pedidos) {
 		%>
 		<tr>
 			<td style="width: 200px"></td>
 			<%
-				out.println("<td id = " + i + ">");
-					out.println("12373" + i);
+				out.println("<td id = " + i.getId() + ">");
+					out.println("" + i.getId());
 			%>
 			</td>
 			<%
-				out.println("<td id = " + i + ">");
-					out.println("8 - Pedro");
+				out.println("<td id = " + i.getId() + ">");
+					out.println(i.getCliente().getId());
 			%>
 			<td style="width: 400px">
 				<div class="form-group">
 					<select class="form-control"
 						id="txtStatus" name="txtStatus">
-						<option value="Aguardando">Aguardando aprovação</option>
-						<option value="Aprovado">Aprovado</option>
-						<option value="Em transporte">Em transporte</option>
-						<option value="Entregue">Entregue</option>
+						<option value=1>Aguardando aprovação</option>
+						<option value=2>Em preparo</option>
+						<option value=3>Em transporte</option>
+						<option value=4>Entregue</option>
 					</select>
 				</div>
 			</td>
